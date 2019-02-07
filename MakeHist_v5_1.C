@@ -47,16 +47,8 @@ using namespace std;
 
 
 
-Float_t CalcWeight(TString sample){
-  Float_t lumi=1.0;
-  Float_t total=1.0;
-  //if(sample.Contains("0405e"))  { lumi=273.4; total=571.2;}
-  //if(sample.Contains("06e"))    { lumi=108.5; total=571.2;}
-  //if(sample.Contains("ele2005")){ lumi=134.5; total=571.2;}
-  // if(sample.Contains("ele2006")){ lumi=54.5 ; total=571.2;}
-  
-  Float_t weight = lumi /total;
-  return 1.56; //  return weight;
+Float_t CalcWeight(TString period, Float_t q2){
+  return 1.; //weight;
 }
 
 //--->START MAIN PROGRAM
@@ -93,8 +85,8 @@ void MakeHist_v5_1(const Char_t *eachfile= "~/Desktop/zeusmc.hfix627.h1391.0607p
     if (found == std::string::npos) {cout << "Problem finding the MC file" << endl; return;}
     sscanf(&eachfile2[found],"/zeusmc.%s",sample);
     cout << "Sample MC: " << sample << endl;
-    Weight = CalcWeight(sample);
-    cout << "Weight   : " << Weight << endl; 
+    // Weight = CalcWeight(sample);
+    // cout << "Weight   : " << Weight << endl; 
   }
 
   TTree *firstJet = (TTree*)f.Get("orange");
@@ -123,14 +115,14 @@ void MakeHist_v5_1(const Char_t *eachfile= "~/Desktop/zeusmc.hfix627.h1391.0607p
   TH1D* hJetMult   = new TH1D("hJetMult", "Jets Multiplicity "  , 11,0,11);
   TH1D* hEmpz      = new TH1D("hEmpz"   , "E_{M} - p_{Z}"       , 100,20,70);
   TH1D* hGamma     = new TH1D("hGamma"  , "cos(#gamma_{h})"     , 120,-1,-0.6);
-  TH1D* hPtEt      = new TH1D("hPtEt"   , "P_{T} / #sqrt(E_{T}): from Zufo", 90,0,3);
+  TH1D* hPtEt      = new TH1D("hPtEt"   , "P_{T} / #sqrt(E_{T}): from Zufo", 100,0,5);
   TH1D* hDiffEmpz  = new TH1D("hDiffEmpz", "E - p_{Z}: Zufo - Cal", 200,-20,20);
   //Electron quantities
   TH1D* hElecTheta = new TH1D("hElecTheta", "Angle #theta of the DIS electron", 120, 130., 190.);
   TH1D* hElecPhi   = new TH1D("hElecPhi"  , "Angle #phi of the DIS electron"  , 60,-TMath::Pi(),TMath::Pi());
   TH1D* hElecE     = new TH1D("hElecE"    , "Energy of the DIS electron"      , 100, 10., 60.);
   TH1D* hElecProb  = new TH1D("hElecProb" , "Sinistra probability"            , 200, 0.89, 1.);
-  TH1D* hElecy     = new TH1D("hElecy"    , "Inelasticity JB method"          , 220, -0.1, 1.);
+  TH1D* hElecy     = new TH1D("hElecy"    , "Inelasticity JB method"          , 250, -0.5, 1.);
   TH2D* h2ElecPos  = new TH2D("h2ElecPos" , "Sinistra probability"            , 800,-200,200,800,-200,200);
   //Jets
   TH1D* hJetEt   = new TH1D("hJetEt"  ,"Jets Transverse Energy"  , 110,0,55);
@@ -190,13 +182,14 @@ void MakeHist_v5_1(const Char_t *eachfile= "~/Desktop/zeusmc.hfix627.h1391.0607p
     if(period == "0607p" && !(JetOrange->Tltw[2] & (1 << 8)) ) continue;      //SPP09
     /////Jet selection
     if(JetOrange->Kt_njet_b <= 0) continue;
-    // if(JetOrange->Kt_etajet_b[0]<-1.5 || JetOrange->Kt_etajet_b[0]>1.8) continue;
+    if(JetOrange->Kt_etajet_b[0]<-1.0 || JetOrange->Kt_etajet_b[0]>1.0) continue;
     if(JetOrange->Kt_etjet_b[0] < 2.5) continue;
     
     /////////////////////END Define Cuts <--3.1--
     
 
     /////////////////////Fill histograms --3.2-->
+    if(!isdata) Weight = ClacWeight(period,JetOrange->Siq2el[0]);
     //------------Event
     hVertexZ->Fill(JetOrange->Zvtx                          ,Weight); 
     h2Q2x   ->Fill(JetOrange->Sixel[0],JetOrange->Siq2el[0] ,Weight);
