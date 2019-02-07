@@ -57,7 +57,7 @@ do
             	" $WORKDIR/runInc.sh > $output/runInc.sh
 
             # ln -s $cut_file $output/cuts.data
-            ln -s $WORKDIR/make_hists2.C $output/make_hists2.C
+            ln -s $WORKDIR/MakeHist_v5_1.C $output/MakeHist_v5_1.C
             ln -s $WORKDIR/JetOrange2018.h $output/JetOrange2018.h
            	condor_submit $output/QA.job
 
