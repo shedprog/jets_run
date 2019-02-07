@@ -1,0 +1,29 @@
+#example submit file with transfer of the executable and usage of the shared filesystem
+#transfer of executable can be handy as you can keep working on the executable localy while the job is running
+#without interference with the binary the job is running
+# 
+Universe	= vanilla
+
+#Notification	= Error
+Initialdir	= INITDIR
+#Executable	= /afs/desy.de/user/q/quintera/public/Jets/runInc.sh $(Process)
+Executable      = /bin/sh
+Arguments       = runInc.sh $(Process)
+#transfer_executable = True					     
+#Requirements    = CPU_Speed >=1
+Requirements    = OpSysAndVer == "SL6"
+#Priority	= +20
+#GetEnv		= True
+Output		= OUT_CONDOR/out/condor.$(Process).out
+Error		= OUT_CONDOR/err/condor.$(Process).err
+Log			= OUT_CONDOR/log/condor.$(Process).log
+Notify_user	= mykyta.shchedrolosiev@gmail.com
+
+#_$(Cluster)_$(Process) gets substituted by cluster and process ID, putting it in the output files leads to individual files
+#for each job. Remember that regular filesystem rules about maximum files in a directory and maximum filesizes apply (warning)
+#htcondor will (as any other batchsystem) not create any directories for you, hence these need to exist.
+
+#-05e:3079 -06e:1040  = 4119    MC 040506e: 6100    PHP:609   06e:1733
+#-06p:     -07p:      = 2943    MC   0607p: 5812
+Queue NUMBER_QUEUE
+
