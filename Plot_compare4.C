@@ -13,7 +13,7 @@
 //________________________________________________________________________________
 void Plot_compare4(const Char_t *fdata_path, const Char_t *fmc_path){
  
-  gROOT->SetBatch(kTRUE); // To turn off screen output
+  // gROOT->SetBatch(kTRUE); // To turn off screen output
  
   //  gROOT->cd();
   TDatime now;                                          //Set time in Root
@@ -1024,11 +1024,11 @@ void Plot_compare4(const Char_t *fdata_path, const Char_t *fmc_path){
   TDatime now1;
   now1.Print();
   
-  gSystem->Exec("mv ./plots ./plots_old");  
-  gSystem->Exec("mkdir -p ./plots");
-  c0->SaveAs("./plots/c0.pdf");
-  ce->SaveAs("./plots/ce.pdf");
-  c1->SaveAs("./plots/c1.pdf");
+  // gSystem->Exec("mv ./plots ./plots_old");  
+  // gSystem->Exec("mkdir -p ./plots");
+  // c0->SaveAs("./plots/c0.pdf");
+  // ce->SaveAs("./plots/ce.pdf");
+  // c1->SaveAs("./plots/c1.pdf");
   cQ->SaveAs("./plots/cQ.pdf");
 
   //file->Clear(); 

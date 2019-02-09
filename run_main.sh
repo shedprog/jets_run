@@ -28,7 +28,7 @@ WORKDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 filename=$(basename $DATA)
 
-output=${WORKDIR}/outpu_${filename}
+output=${WORKDIR}/output_${filename}
 mkdir -p $output
 data_outdir=${output}/output
 
@@ -65,7 +65,11 @@ do
             ;;
 
         --hadd| -h)
-        
+            
+            mkdir ${data_outdir}/root
+            
+            for i in $
+
             hadd output/${filename}.root ${data_outdir}/*
             shift
             ;;
