@@ -157,7 +157,7 @@ void MakeHist_v5_1(const Char_t *eachfile= "~/Desktop/zeusmc.hfix627.h1391.0607p
     //if(JetOrange->Siq2el[0]<10) continue;
     /////Cleanning cuts
     if(JetOrange->Zvtx<-40 || JetOrange->Zvtx>40 || JetOrange->Zvtx==0)    continue;
-    //if(JetOrange->Cal_empz<35 || JetOrange->Cal_empz>65) continue;  
+    if(JetOrange->Cal_empz<35 || JetOrange->Cal_empz>65) continue;  
     //Calculate E-pz from zufo
     Float_t Empz = 0.;
     for(Int_t zloop=0; zloop<JetOrange->Nzufos; zloop++){
@@ -167,14 +167,14 @@ void MakeHist_v5_1(const Char_t *eachfile= "~/Desktop/zeusmc.hfix627.h1391.0607p
     }
     //cout << Form("Calorimeter: %f     Zufo: %f     Diff: %f",JetOrange->Cal_empz,Empz,JetOrange->Cal_empz - Empz) << endl;
     if(Empz < 35. || Empz > 65.) continue;
-    // if(JetOrange->Siyel[0] > 0.95) continue;
-    // if(JetOrange->Siyjb[0] < 0.04) continue;
-    // if(JetOrange->Cal_pt / TMath::Sqrt(JetOrange->Cal_et) > 2.5) continue;
+    if(JetOrange->Siyel[0] > 0.95) continue;
+    if(JetOrange->Siyjb[0] < 0.04) continue;
+    if(JetOrange->Cal_pt / TMath::Sqrt(JetOrange->Cal_et) > 2.5) continue;
     /////Electron cuts
     if(JetOrange->Siecorr[0][2] < 10) continue;
     if(JetOrange->Sith[0]*180.0/TMath::Pi() < 140 || JetOrange->Sith[0]*180.0/TMath::Pi() > 180.0) continue;
-    // if(JetOrange->Sipos[0][2] < -148. && JetOrange->Sipos[0][0] > -14. 
-       // && JetOrange->Sipos[0][0] < 12. && JetOrange->Sipos[0][1] > 90.) continue;                //Chimney cut
+    if(JetOrange->Sipos[0][2] < -148. && JetOrange->Sipos[0][0] > -14. 
+       && JetOrange->Sipos[0][0] < 12. && JetOrange->Sipos[0][1] > 90.) continue;                //Chimney cut
     if(sqrt(JetOrange->Sipos[0][0]*JetOrange->Sipos[0][0] + JetOrange->Sipos[0][1]*JetOrange->Sipos[0][1]) < 20.0) continue;
     /////Triggers
     if(period == "0405e" && !(JetOrange->Tltw[2] & (1 << 1)) ) continue;      //SPP02

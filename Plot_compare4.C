@@ -11,9 +11,9 @@
 
 //--->START MAIN PROGRAM
 //________________________________________________________________________________
-void Plot_compare4(const Char_t *fdata_path, const Char_t *fmc_path){
+void Plot_compare4(){
  
-  // gROOT->SetBatch(kTRUE); // To turn off screen output
+  gROOT->SetBatch(kTRUE); // To turn off screen output
  
   //  gROOT->cd();
   TDatime now;                                          //Set time in Root
@@ -22,11 +22,10 @@ void Plot_compare4(const Char_t *fdata_path, const Char_t *fmc_path){
   gStyle->SetOptStat(0);
   
   /////Read files --1-->
-  TFile *fdata = new TFile(fdata_path);  
-  TFile *fmc   = new TFile(fmc_path); 
+  TFile *fdata = new TFile("./040506e.root");  
+  TFile *fmc   = new TFile("./040506e_MC.root");
+  //TFile *fPHP = new TFile("./040506e_PHPw.root");
 
-  //TFile *fdata = new TFile("040506e.root");  
-  //TFile *fmc   = new TFile("040506e_MC.root"); 
   /////END Read files <--1--
 
   Bool_t REBIN = 0;    
@@ -43,6 +42,7 @@ void Plot_compare4(const Char_t *fdata_path, const Char_t *fmc_path){
   TH1D* hdataEmpz    = (TH1D*)fdata->Get("hEmpz");   
   TH1D* hdataGamma   = (TH1D*)fdata->Get("hGamma");   
   TH1D* hdataPtEt    = (TH1D*)fdata->Get("hPtEt");   
+
   TH1D* hmcVertexZ = (TH1D*)fmc->Get("hVertexZ");  
   TH2D* h2mcQ2x    = (TH2D*)fmc->Get("h2Q2x");  
   TH1D* hmcQ2      = (TH1D*)fmc->Get("hQ2");  
@@ -59,6 +59,7 @@ void Plot_compare4(const Char_t *fdata_path, const Char_t *fmc_path){
   TH1D* hdataElecProb    = (TH1D*)fdata->Get("hElecProb"); 
   TH2D* h2dataElecPos    = (TH2D*)fdata->Get("h2ElecPos"); 
   TH1D* hdataElecy       = (TH1D*)fdata->Get("hElecy"); 
+
   TH1D* hmcElecTheta   = (TH1D*)fmc->Get("hElecTheta");  
   TH1D* hmcElecPhi     = (TH1D*)fmc->Get("hElecPhi");    
   TH1D* hmcElecE       = (TH1D*)fmc->Get("hElecE");  
@@ -66,29 +67,31 @@ void Plot_compare4(const Char_t *fdata_path, const Char_t *fmc_path){
   TH2D* h2mcElecPos    = (TH2D*)fmc->Get("h2ElecPos"); 
   TH1D* hmcElecy       = (TH1D*)fmc->Get("hElecy"); 
 
-  /*Float_t DATA_weight = 1;
-  Float_t MC_weight   = 276.4 + 108.5; //0405e + 06e 
-  Float_t PHP_weight  = 16.2 +77.8 + 40.2 + 53.55;
-  
-  hmcElecTheta   ->Scale(1/MC_weight);  
-  hmcElecPhi     ->Scale(1/MC_weight);  
-  hmcElecE       ->Scale(1/MC_weight);  
-  hmcElecProb    ->Scale(1/MC_weight);  
-  hmcElecy       ->Scale(1/MC_weight);
+  // Float_t DATA_weight = 1;
+  Float_t PHP_weight = 1;
 
-  hmcElecTheta   ->Add(  (TH1D*)fPHP->Get("hElecTheta"), PHP_weight);  
-  hmcElecPhi     ->Add(  (TH1D*)fPHP->Get("hElecPhi"), PHP_weight);    
-  hmcElecE       ->Add(  (TH1D*)fPHP->Get("hElecE"), PHP_weight);  
-  hmcElecProb    ->Add(  (TH1D*)fPHP->Get("hElecProb"), PHP_weight);
-  hmcElecy       ->Add(  (TH1D*)fPHP->Get("hElecy"), PHP_weight);
+  // Float_t MC_weight   = 276.4 + 108.5; //0405e + 06e 
+  // Float_t PHP_weight  = 16.2 +77.8 + 40.2 + 53.55;
   
-  hmcElecTheta   ->Scale(1/DATA_weight);  
-  hmcElecPhi     ->Scale(1/DATA_weight);  
-  hmcElecE       ->Scale(1/DATA_weight);  
-  hmcElecProb    ->Scale(1/DATA_weight);  
-  hmcElecy       ->Scale(1/DATA_weight);
+  // hmcElecTheta   ->Scale(1/MC_weight);  
+  // hmcElecPhi     ->Scale(1/MC_weight);  
+  // hmcElecE       ->Scale(1/MC_weight);  
+  // hmcElecProb    ->Scale(1/MC_weight);  
+  // hmcElecy       ->Scale(1/MC_weight);
 
-  */
+  // hmcElecTheta   ->Add(  (TH1D*)fPHP->Get("hElecTheta"), PHP_weight);  
+  // hmcElecPhi     ->Add(  (TH1D*)fPHP->Get("hElecPhi"), PHP_weight);    
+  // hmcElecE       ->Add(  (TH1D*)fPHP->Get("hElecE"), PHP_weight);  
+  // hmcElecProb    ->Add(  (TH1D*)fPHP->Get("hElecProb"), PHP_weight);
+  // hmcElecy       ->Add(  (TH1D*)fPHP->Get("hElecy"), PHP_weight);
+  
+  // hmcElecTheta   ->Scale(1/DATA_weight);  
+  // hmcElecPhi     ->Scale(1/DATA_weight);  
+  // hmcElecE       ->Scale(1/DATA_weight);  
+  // hmcElecProb    ->Scale(1/DATA_weight);  
+  // hmcElecy       ->Scale(1/DATA_weight);
+
+  
   
   //Jets
   TH1D* hdataJetEt    = (TH1D*)fdata->Get("hJetEt");
@@ -131,7 +134,7 @@ void Plot_compare4(const Char_t *fdata_path, const Char_t *fmc_path){
   if(REBIN) hdataVertexZ->Rebin(binXX);
   hdataVertexZ->SetTitle("Vertex Z");
   hdataVertexZ->GetXaxis()->SetTitle("z (cm))");
-  hdataVertexZ->SetLineWidth(2); hdataVertexZ->SetLineColor(4);
+  hdataVertexZ->SetLineWidth(1); hdataVertexZ->SetLineColor(4);
   //hdataVertexZ->Scale(1/hdataVertexZ->GetEntries());
   //hdataVertexZ->SetMaximum(470000);
   //hdataVertexZ->SetMinimum(0);
@@ -139,8 +142,8 @@ void Plot_compare4(const Char_t *fdata_path, const Char_t *fmc_path){
   TLegend *legend0 = new TLegend(0.7,0.70,0.85,0.85);
   legend0->AddEntry(hdataVertexZ, "Data", "l");
   //TLatex* latex1 = new TLatex();
-  //latex1->SetTextFont(22);
-  //latex1->SetTextSize(0.1);
+  // latex1->SetTextFont(22);
+  // latex1->SetTextSize(0.1);
   //latex1->DrawLatexNDC(0.6,0.60,trigger);
   //if(ijet==0)  latex1->DrawLatexNDC(0.6,0.50,"High jet");
   //else  latex1->DrawLatexNDC(0.6,0.50,"Low jet");
@@ -172,7 +175,7 @@ void Plot_compare4(const Char_t *fdata_path, const Char_t *fmc_path){
   hdataVertexZ_R->GetYaxis()->SetTitleSize(0.07);
   hdataVertexZ_R->GetYaxis()->SetTitleOffset(0.38);
   hdataVertexZ_R->GetYaxis()->SetRangeUser(0.8,1.2);
-  //hdataVertexZ_R->SetLineWidth(2);
+  hdataVertexZ_R->SetLineWidth(1);
   hdataVertexZ_R->GetYaxis()->SetLabelSize(0.09);
   hdataVertexZ_R->GetXaxis()->SetLabelSize(0.09);
   hdataVertexZ_R->GetXaxis()->SetTitleSize(0.07);
@@ -1024,11 +1027,14 @@ void Plot_compare4(const Char_t *fdata_path, const Char_t *fmc_path){
   TDatime now1;
   now1.Print();
   
-  // gSystem->Exec("mv ./plots ./plots_old");  
-  // gSystem->Exec("mkdir -p ./plots");
-  // c0->SaveAs("./plots/c0.pdf");
-  // ce->SaveAs("./plots/ce.pdf");
-  // c1->SaveAs("./plots/c1.pdf");
+  // int stop;
+  // std::cin>>stop;
+
+  gSystem->Exec("mv ./plots ./plots_old");  
+  gSystem->Exec("mkdir -p ./plots");
+  c0->SaveAs("./plots/c0.pdf");
+  ce->SaveAs("./plots/ce.pdf");
+  c1->SaveAs("./plots/c1.pdf");
   cQ->SaveAs("./plots/cQ.pdf");
 
   //file->Clear(); 
