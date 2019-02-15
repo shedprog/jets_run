@@ -23,8 +23,8 @@ void Plot_compare4(){
   
   /////Read files --1-->
   TFile *fdata = new TFile("./040506e.root");  
-  TFile *fmc   = new TFile("./040506e_MC.root");
-  //TFile *fPHP = new TFile("./040506e_PHPw.root");
+  TFile *fmc   = new TFile("./040506e_MCw.root");
+  TFile *fPHP = new TFile("./040506e_PHP.root");
 
   /////END Read files <--1--
 
@@ -68,7 +68,7 @@ void Plot_compare4(){
   TH1D* hmcElecy       = (TH1D*)fmc->Get("hElecy"); 
 
   // Float_t DATA_weight = 1;
-  Float_t PHP_weight = 1;
+  Float_t PHP_weight = 1.0;
 
   // Float_t MC_weight   = 276.4 + 108.5; //0405e + 06e 
   // Float_t PHP_weight  = 16.2 +77.8 + 40.2 + 53.55;
@@ -79,11 +79,11 @@ void Plot_compare4(){
   // hmcElecProb    ->Scale(1/MC_weight);  
   // hmcElecy       ->Scale(1/MC_weight);
 
-  // hmcElecTheta   ->Add(  (TH1D*)fPHP->Get("hElecTheta"), PHP_weight);  
-  // hmcElecPhi     ->Add(  (TH1D*)fPHP->Get("hElecPhi"), PHP_weight);    
-  // hmcElecE       ->Add(  (TH1D*)fPHP->Get("hElecE"), PHP_weight);  
-  // hmcElecProb    ->Add(  (TH1D*)fPHP->Get("hElecProb"), PHP_weight);
-  // hmcElecy       ->Add(  (TH1D*)fPHP->Get("hElecy"), PHP_weight);
+   hmcElecTheta   ->Add(  (TH1D*)fPHP->Get("hElecTheta"), PHP_weight);  
+   hmcElecPhi     ->Add(  (TH1D*)fPHP->Get("hElecPhi"), PHP_weight);    
+   hmcElecE       ->Add(  (TH1D*)fPHP->Get("hElecE"), PHP_weight);  
+   hmcElecProb    ->Add(  (TH1D*)fPHP->Get("hElecProb"), PHP_weight);
+   hmcElecy       ->Add(  (TH1D*)fPHP->Get("hElecy"), PHP_weight);
   
   // hmcElecTheta   ->Scale(1/DATA_weight);  
   // hmcElecPhi     ->Scale(1/DATA_weight);  
@@ -1029,7 +1029,7 @@ void Plot_compare4(){
   
   // int stop;
   // std::cin>>stop;
-
+  gSystem->Exec("rm -rf ./plots_old");
   gSystem->Exec("mv ./plots ./plots_old");  
   gSystem->Exec("mkdir -p ./plots");
   c0->SaveAs("./plots/c0.pdf");

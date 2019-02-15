@@ -67,7 +67,7 @@ do
             shift
             ;;
 
-        --run_all | -a)
+        --run_all| -a)
             
             list_dir=/afs/desy.de/user/q/quintera/public/Jets/Lists
 
@@ -109,13 +109,19 @@ do
 
             done
 
-        --hadd| -h)
-            
-            mkdir ${data_outdir}/root
-            
-            for i in $
+            shift
+            ;;
 
-            hadd output/${filename}.root ${data_outdir}/*
+        --hadd| -h)
+
+            WORKDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+            mkdir ${WORKDIR}/root
+            
+            for i in ${WORKDIR}/output_*
+            do
+                filename=$(basename $i)
+                hadd root/${filename}.root ${i}/output/*
+            done 
             shift
             ;;
 
