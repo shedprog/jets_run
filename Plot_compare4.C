@@ -23,14 +23,14 @@ void Plot_compare4(){
   
   /////Read files --1-->
   TFile *fdata = new TFile("./output_Sample_0607p.list.root");  
-  TFile *fmc = new TFile("./output_Sample_Ariadne_Low_Q2_NC_DIS_0607p.list.root");
+  TFile *fmc = new TFile("./output_ari-low_q2-0607p.list.root");
   // TFile *fmc   = new TFile("./output_Sample_ari_incl_nc_DIS_lowQ2_0607p.list.root");
   // TFile *fmc   = new TFile("./output_Sample_Herwig_PHP_QCD_040506e.list.root");
   // TFile *fPHP = new TFile("./output_Sample_Herwig_PHP_QCD_resolved_0607p.list.root");
 
   /////END Read files <--1--
 
-  Bool_t REBIN = 1;    
+  Bool_t REBIN = 0;    
   Int_t binXX = 5;
   
   ////Define Histograms --2-->

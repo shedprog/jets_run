@@ -140,20 +140,32 @@ void MakeHist_v5_1(const Char_t *eachfile= "~/Desktop/zeusmc.hfix627.h1391.0607p
   }
   TH2D* h2JetElecPhi  = new TH2D("h2JetElecPhi" ,"Jet vs electron #phi angle", 60,-TMath::Pi(),TMath::Pi(), 60,0,2*TMath::Pi());
   ////END Define Histograms <--2--
-  
+ 
+  ///Histogram to check which electron is used as Si
+  TH1D* electron_used = new TH1D("electron_used", "electron_used", 11,0,9);   
   
   ///////Start filling the histograms from the trees  --3-->
   Int_t count = 0;
   Long64_t nentries = firstJet->GetEntriesFast();
   cout << "Number of events before the cuts: " << nentries << endl;
-    for (Long64_t jentry=0; jentry<nentries;jentry++) {
+  
+  for (Long64_t jentry=0; jentry<nentries;jentry++) {
+
     JetOrange->GetEntry(jentry);
-    
+
+    //test all electrons
+    //Int_t number_of_electrons = *JetOrange->Sincell;
+    Int_t number_of_electrons = JetOrange->Sincand;
+    //std::cout<<"Number of electrons"
+
+    for (Int_t e_i = 0; e_i < number_of_electrons; e_i++){
+	    
+    //std::cout<<"pre test!\t"<<"numbers:"<<number_of_electrons<<"\te_i:"<<e_i<<"\tevent"<<jentry<<"\n";
     /////////////////////Define Cuts --3.1-->
     /////Using only the electron with the highest probability Siq2el[0]
     /////Using only the highest jet in the event: Kt_etajet_b[0]
     /////Phase Space 
-    if(JetOrange->Siq2el[0]<q2start || JetOrange->Siq2el[0]>q2end) continue;
+    if(JetOrange->Siq2el[e_i]<q2start || JetOrange->Siq2el[e_i]>q2end) continue;
     //if(JetOrange->Siq2el[0]<10) continue;
     /////Cleanning cuts
     if(JetOrange->Zvtx<-40 || JetOrange->Zvtx>40 || JetOrange->Zvtx==0)    continue;
@@ -167,15 +179,15 @@ void MakeHist_v5_1(const Char_t *eachfile= "~/Desktop/zeusmc.hfix627.h1391.0607p
     }
     //cout << Form("Calorimeter: %f     Zufo: %f     Diff: %f",JetOrange->Cal_empz,Empz,JetOrange->Cal_empz - Empz) << endl;
     if(Empz < 35. || Empz > 65.) continue;
-    if(JetOrange->Siyel[0] > 0.95) continue;
-    if(JetOrange->Siyjb[0] < 0.04) continue;
+    if(JetOrange->Siyel[e_i] > 0.95) continue;
+    if(JetOrange->Siyjb[e_i] < 0.04) continue;
     if(JetOrange->Cal_pt / TMath::Sqrt(JetOrange->Cal_et) > 2.5) continue;
     /////Electron cuts
-    if(JetOrange->Siecorr[0][2] < 10) continue;
-    if(JetOrange->Sith[0]*180.0/TMath::Pi() < 140 || JetOrange->Sith[0]*180.0/TMath::Pi() > 180.0) continue;
-    if(JetOrange->Sipos[0][2] < -148. && JetOrange->Sipos[0][0] > -14. 
-       && JetOrange->Sipos[0][0] < 12. && JetOrange->Sipos[0][1] > 90.) continue;                //Chimney cut
-    if(sqrt(JetOrange->Sipos[0][0]*JetOrange->Sipos[0][0] + JetOrange->Sipos[0][1]*JetOrange->Sipos[0][1]) < 20.0) continue;
+    if(JetOrange->Siecorr[e_i][2] < 10) continue;
+    if(JetOrange->Sith[e_i]*180.0/TMath::Pi() < 140 || JetOrange->Sith[e_i]*180.0/TMath::Pi() > 180.0) continue;
+    if(JetOrange->Sipos[e_i][2] < -148. && JetOrange->Sipos[e_i][0] > -14. 
+       && JetOrange->Sipos[e_i][0] < 12. && JetOrange->Sipos[e_i][1] > 90.) continue;                //Chimney cut
+    if(sqrt(JetOrange->Sipos[e_i][0]*JetOrange->Sipos[e_i][0] + JetOrange->Sipos[e_i][1]*JetOrange->Sipos[e_i][1]) < 20.0) continue;
     /////Triggers
     if(period == "0405e" && !(JetOrange->Tltw[2] & (1 << 1)) ) continue;      //SPP02
     if(period == "06e"   && !(JetOrange->Tltw[2] & (1 << 8)) ) continue;      //SPP09
@@ -187,14 +199,38 @@ void MakeHist_v5_1(const Char_t *eachfile= "~/Desktop/zeusmc.hfix627.h1391.0607p
     
     /////////////////////END Define Cuts <--3.1--
     
+    ////////////////////check whether electron excluded from zufos
+    TLorentzVector v_electron; 
+    Int_t electron_number = -1;
+    Double_t dr_elec_min = 999.;
+
+    v_electron.SetPtEtaPhiE(JetOrange->Sipt[e_i], -TMath::Log(TMath::Tan(JetOrange->Sith[e_i]/2.)), JetOrange->Siph[e_i], JetOrange->Siecorr[e_i][2]);
+	  
+    for(Int_t zloop=0; zloop<JetOrange->Nzufos; zloop++)
+	    {
+	      TLorentzVector v(JetOrange->Zufo[zloop][0], JetOrange->Zufo[zloop][1], JetOrange->Zufo[zloop][2], JetOrange->Zufo[zloop][3]);
+	      Double_t dr = v.DeltaR(v_electron);
+	
+	    //if(v.E() > 5. && dr < dr_elec_min)
+	    if(v.E()-v_electron.E()<3.0 && dr < dr_elec_min){
+	    // change cuts v.E()-v_electron() < ... 
+		    {
+		      dr_elec_min = dr;
+		      if(dr < 0.5)
+		      electron_number = zloop;
+		    }
+
+	    }}
+
+    if(electron_number < 0) continue;
 
     /////////////////////Fill histograms --3.2-->
-    if(!isdata) Weight = CalcWeight(period,JetOrange->Siq2el[0]);
+    if(!isdata) Weight = CalcWeight(period,JetOrange->Siq2el[e_i]);
     //------------Event
     hVertexZ->Fill(JetOrange->Zvtx                          ,Weight); 
-    h2Q2x   ->Fill(JetOrange->Sixel[0],JetOrange->Siq2el[0] ,Weight);
-    hQ2     ->Fill(JetOrange->Siq2el[0]                     ,Weight);
-    hx      ->Fill(JetOrange->Sixel[0]                      ,Weight);
+    h2Q2x   ->Fill(JetOrange->Sixel[e_i],JetOrange->Siq2el[e_i] ,Weight);
+    hQ2     ->Fill(JetOrange->Siq2el[e_i]                     ,Weight);
+    hx      ->Fill(JetOrange->Sixel[e_i]                      ,Weight);
     hJetMult->Fill(JetOrange->Kt_njet_b                     ,Weight);
     hEmpz   ->Fill(Empz                                     ,Weight);
     //hEmpz   ->Fill(JetOrange->Cal_empz                      ,Weight);
@@ -202,12 +238,12 @@ void MakeHist_v5_1(const Char_t *eachfile= "~/Desktop/zeusmc.hfix627.h1391.0607p
     hPtEt   ->Fill(JetOrange->Cal_pt/sqrt(JetOrange->Cal_et),Weight);
     hDiffEmpz->Fill(Empz - JetOrange->Cal_empz              ,Weight);
     //------------Electron 
-    hElecTheta->Fill(JetOrange->Sith[0]*180.0/TMath::Pi()         ,Weight);
-    hElecPhi  ->Fill(JetOrange->Siph[0]                           ,Weight);
-    hElecE    ->Fill(JetOrange->Siecorr[0][2]                     ,Weight);
-    hElecProb ->Fill(JetOrange->Siprob[0]                         ,Weight);
-    hElecy    ->Fill(JetOrange->Siyjb[0]                          ,Weight);
-    h2ElecPos ->Fill(JetOrange->Sipos[0][0],JetOrange->Sipos[0][1],Weight);
+    hElecTheta->Fill(JetOrange->Sith[e_i]*180.0/TMath::Pi()         ,Weight);
+    hElecPhi  ->Fill(JetOrange->Siph[e_i]                           ,Weight);
+    hElecE    ->Fill(JetOrange->Siecorr[e_i][2]                     ,Weight);
+    hElecProb ->Fill(JetOrange->Siprob[e_i]                         ,Weight);
+    hElecy    ->Fill(JetOrange->Siyjb[e_i]                          ,Weight);
+    h2ElecPos ->Fill(JetOrange->Sipos[e_i][0],JetOrange->Sipos[e_i][1],Weight);
     //------------Jet
     hJetEt  ->Fill(JetOrange->Kt_etjet_b[0] ,Weight);
     hJetMass->Fill(JetOrange->Kt_masjet_b[0],Weight);
@@ -217,7 +253,7 @@ void MakeHist_v5_1(const Char_t *eachfile= "~/Desktop/zeusmc.hfix627.h1391.0607p
     hJetPhi ->Fill(JetOrange->Kt_phijet_b[0],Weight);
 
     //------------Correlation
-    Float_t ElectronPhi = JetOrange->Siph[0] > 0. ? JetOrange->Siph[0] : 2*TMath::Pi() + JetOrange->Siph[0];  
+    Float_t ElectronPhi = JetOrange->Siph[e_i] > 0. ? JetOrange->Siph[e_i] : 2*TMath::Pi() + JetOrange->Siph[e_i];  
     Float_t DecorrPhi   = TMath::Abs( JetOrange->Kt_phijet_b[0] - ElectronPhi) ;
     if(DecorrPhi > TMath::Pi()) DecorrPhi = 2*TMath::Pi() - DecorrPhi ;
 
@@ -229,7 +265,9 @@ void MakeHist_v5_1(const Char_t *eachfile= "~/Desktop/zeusmc.hfix627.h1391.0607p
     }
     /////////////////////END Fill histograms <--3.2--
     count++;
-  }
+    // to take only one electron from event
+    e_i = 999;
+  }}
   cout << "Number of events after the cuts : " << count << endl;
   ///END Start filling the histograms from the trees  <--3--
 
