@@ -21,7 +21,9 @@ DATA=/afs/desy.de/user/q/quintera/public/Jets/Lists/Sample_0607p.list
 # DATA=/afs/desy.de/user/q/quintera/public/Jets/Lists/Sample_Pythia_PHP_QCD_direct_040506e.list
 # DATA=/afs/desy.de/user/q/quintera/public/Jets/Lists/Sample_Pythia_PHP_QCD_resolved_040506e.list
 
-
+list_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"/lists
+WORKDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+OUTDIR=/nfs/dust/zeus/group/mykytaua/Jets_nfs/12.04.2019/GEN_OUT
 
 
 while [ ! $# -eq 0 ]
@@ -30,14 +32,11 @@ do
 
         --run| -r)
 
-            cut_file="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"/cuts.data
-
-            WORKDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-
+            # WORKDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
             filename=$(basename $DATA)
 
-            output=${WORKDIR}/output_${filename}
+            output=${OUTDIR}/output_${filename}
             mkdir -p $output
             data_outdir=${output}/output
 
@@ -60,27 +59,23 @@ do
             	" $WORKDIR/runInc.sh > $output/runInc.sh
 
             # ln -s $cut_file $output/cuts.data
-            ln -s $WORKDIR/MakeHist_v5_1.C $output/MakeHist_v5_1.C
-            ln -s $WORKDIR/JetOrange2018.h $output/JetOrange2018.h
-           	condor_submit $output/QA.job
+            cp $WORKDIR/MakeHist_v5_1.C $output/MakeHist_v5_1.C
+            cp $WORKDIR/JetOrange2018.h $output/JetOrange2018.h
 
+            cd $output
+           	condor_submit $output/QA.job
+            cd -
             shift
             ;;
 
         --run_all| -a)
             
-            list_dir=/afs/desy.de/user/q/quintera/public/Jets/Lists
-
             for DATA in ${list_dir}/*
             do
 
-                cut_file="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"/cuts.data
-
-                WORKDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-
                 filename=$(basename $DATA)
 
-                output=${WORKDIR}/output_${filename}
+                output=${OUTDIR}/output_${filename}
                 mkdir -p $output
                 data_outdir=${output}/output
 
@@ -103,10 +98,12 @@ do
                     " $WORKDIR/runInc.sh > $output/runInc.sh
 
                 # ln -s $cut_file $output/cuts.data
-                ln -s $WORKDIR/MakeHist_v5_1.C $output/MakeHist_v5_1.C
-                ln -s $WORKDIR/JetOrange2018.h $output/JetOrange2018.h
-            condor_submit $output/QA.job
+                cp $WORKDIR/MakeHist_v5_1.C $output/MakeHist_v5_1.C
+                cp $WORKDIR/JetOrange2018.h $output/JetOrange2018.h
 
+                cd $output
+                condor_submit $output/QA.job
+                cd -
             done
 
             shift
@@ -114,10 +111,9 @@ do
 
         --hadd| -h)
 
-            WORKDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-            mkdir ${WORKDIR}/root
+            mkdir ${OUTDIR}/root
             
-            for i in ${WORKDIR}/output_*
+            for i in ${OUTDIR}/output/output_*
             do
                 filename=$(basename $i)
                 hadd root/${filename}.root ${i}/output/*
@@ -128,6 +124,7 @@ do
         *)
             echo 'Not available flag!'
             break
+            shift
             ;;
     esac
     shift

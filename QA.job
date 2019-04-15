@@ -6,7 +6,6 @@ Universe	= vanilla
 
 #Notification	= Error
 Initialdir	= INITDIR
-#Executable	= /afs/desy.de/user/q/quintera/public/Jets/runInc.sh $(Process)
 Executable      = /bin/sh
 Arguments       = runInc.sh $(Process)
 #transfer_executable = True					     
@@ -17,7 +16,7 @@ Requirements    = OpSysAndVer == "SL6"
 Output		= OUT_CONDOR/out/condor.$(Process).out
 Error		= OUT_CONDOR/err/condor.$(Process).err
 Log			= OUT_CONDOR/log/condor.$(Process).log
-Notify_user	= mykyta.shchedrolosiev@gmail.com
+Notify_user	= mykyta.shchedrolosiev@desy.de
 
 #_$(Cluster)_$(Process) gets substituted by cluster and process ID, putting it in the output files leads to individual files
 #for each job. Remember that regular filesystem rules about maximum files in a directory and maximum filesizes apply (warning)

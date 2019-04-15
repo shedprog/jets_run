@@ -217,12 +217,12 @@ void make_hists2(//const Char_t *eachfile= "~/Desktop/zeusmc.hfix627.h1391.0607p
 		       JetOrange->Zufo[zloop][2], JetOrange->Zufo[zloop][3]);
       Double_t dr = v.DeltaR(v_electron);
       if(v.E() > 5. && dr < dr_elec_min){
-	dr_elec_min = dr;
-	if(dr < 0.5) electron_number = zloop;
+	  dr_elec_min = dr;
+	  if(dr < 0.5) electron_number = zloop;
       }
     }
     if(electron_number < 0) continue;
-   */
+    */
     //Triggers
     if(period == "0405e" && !(JetOrange->Tltw[2] & (1 << 1)) ) continue;      //SPP02
     if(period == "06e"   && !(JetOrange->Tltw[2] & (1 << 8)) ) continue;      //SPP09
