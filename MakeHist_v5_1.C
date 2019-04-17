@@ -157,7 +157,7 @@ void MakeHist_v5_1(const Char_t *eachfile= "~/Desktop/zeusmc.hfix627.h1391.0607p
     //if(JetOrange->Siq2el[0]<10) continue;
     /////Cleanning cuts
     if(JetOrange->Zvtx<-40 || JetOrange->Zvtx>40 || JetOrange->Zvtx==0)    continue;
-    if(JetOrange->Cal_empz<35 || JetOrange->Cal_empz>65) continue;  
+    //if(JetOrange->Cal_empz<35 || JetOrange->Cal_empz>65) continue;  
     //Calculate E-pz from zufo
     Float_t Empz = 0.;
     for(Int_t zloop=0; zloop<JetOrange->Nzufos; zloop++){
@@ -187,6 +187,30 @@ void MakeHist_v5_1(const Char_t *eachfile= "~/Desktop/zeusmc.hfix627.h1391.0607p
     
     /////////////////////END Define Cuts <--3.1--
     
+    // Addition DIS cuts
+//    Bool_t dis_cuts=true;
+    // Energy in cone
+//    if (Sienin[0] < 0.1*(Siein[0] + Sienin[0]))
+//	     dis_cuts=true;
+//    else
+//	     dis_cuts=false; 
+    // Lepton probability
+//    if (Siprob[0] > 0.9)
+//    	     dis_cuts=true;
+//    else
+//    	     dis_cuts=false;
+    // Lepton track 
+//    if (Sidca[0] < 20. && Sidca[0] >= 0.)
+//             dis_cuts=true;
+//    else {
+//              TVector3 leptonPosition(Sipos[0][0], Sipos[0][1], Sipos[0][2]);
+//              if (leptonPosition.Theta() < 0.4 || leptonPosition.Theta() > 2.721)
+//        	dis_cuts=true;
+//              else
+//        	dis_cuts=false;
+//    }
+//
+//    if(dis_cuts==false) continue;
 
     /////////////////////Fill histograms --3.2-->
     if(!isdata) Weight = CalcWeight(period,JetOrange->Siq2el[0]);
