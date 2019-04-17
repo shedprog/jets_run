@@ -258,7 +258,7 @@ void matches_ele_Si(const Char_t *eachfile= "/pnfs/desy.de/dphep/online/zeus/z/n
 		float theta_MC = TMath::Pi() + TMath::ATan( TMath::Sqrt(px_MC*px_MC+py_MC*py_MC) / pz_MC);
 		h2ElecThetaRC_MC->Fill(JetOrange->Sith[iele]*180.0/TMath::Pi(),theta_MC*180.0/TMath::Pi());
 
-		TString method("EM")
+		TString method("DA");
 
 		if (method=="EM"){
 			h2ElecQ2RC_MC->Fill(JetOrange->Siq2el[iele],JetOrange->Mc_q2);

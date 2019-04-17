@@ -23,7 +23,7 @@ DATA=/afs/desy.de/user/q/quintera/public/Jets/Lists/Sample_Ariadne_Low_Q2_NC_DIS
 
 list_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"/lists
 WORKDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-OUTDIR=/nfs/dust/zeus/group/mykytaua/Jets_nfs/12.04.2019/MethodsEM
+OUTDIR=/nfs/dust/zeus/group/mykytaua/Jets_nfs/12.04.2019/MethodsDA
 mkdir -p $OUTDIR
 
 while [ ! $# -eq 0 ]
@@ -59,7 +59,7 @@ do
             	" $WORKDIR/runInc.sh > $output/runInc.sh
 
             # ln -s $cut_file $output/cuts.data
-            cp $WORKDIR/matches_ele_Si.C$output/matches_ele_Si.C
+            cp $WORKDIR/matches_ele_Si.C $output/matches_ele_Si.C
             cp $WORKDIR/JetOrange2018.h $output/JetOrange2018.h
 
             cd $output
