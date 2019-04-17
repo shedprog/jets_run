@@ -23,7 +23,7 @@ DATA=/afs/desy.de/user/q/quintera/public/Jets/Lists/Sample_Ariadne_Low_Q2_NC_DIS
 
 list_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"/lists
 WORKDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-OUTDIR=/nfs/dust/zeus/group/mykytaua/Jets_nfs/12.04.2019/MethodsDA
+OUTDIR=/nfs/dust/zeus/group/mykytaua/Jets_nfs/17.04.2019/MethodsDA
 mkdir -p $OUTDIR
 
 while [ ! $# -eq 0 ]

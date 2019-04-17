@@ -124,15 +124,7 @@ void matches_ele_Si(const Char_t *eachfile= "/pnfs/desy.de/dphep/online/zeus/z/n
 	h2EtEleRC_MC->GetXaxis()->SetTitle("E_{T, RC}");
 	h2EtEleRC_MC->GetYaxis()->SetTitle("E_{T, MC}");
 
-	TH2D* h2dEEleRC_MC  = new TH2D("h2dEEleRC_MC", "Reco vs True (dE, best candidate)", 100, -50, 50, 100, 0, 0.5);
-	h2dEEleRC_MC->GetXaxis()->SetTitle("dE");
-	h2dEEleRC_MC->GetYaxis()->SetTitle("dR");
-
-	TH2D* h2dEtEleRC_MC = new TH2D("h2dEtEleRC_MC", "Reco vs True (dEt, best candidate)", 100, -20, 20, 100, 0, 0.5);
-	h2dEtEleRC_MC->GetXaxis()->SetTitle("dE_{T}");
-	h2dEtEleRC_MC->GetYaxis()->SetTitle("dR");
-
-	TH2D* h2ElecThetaRC_MC = new TH2D("hElecThetaRC_MC", "Reco vs True (Angle #theta DIS electron)", 100, 100., 180., 100, 100., 180.);
+	TH2D* h2ElecThetaRC_MC = new TH2D("hElecThetaRC_MC", "Reco vs True (Angle #theta DIS electron)", 100, 130., 180., 100, 130., 180.);
 	h2ElecThetaRC_MC->GetXaxis()->SetTitle("#theta_{RC}");
 	h2ElecThetaRC_MC->GetYaxis()->SetTitle("#theta_{MC}");
 
@@ -147,6 +139,62 @@ void matches_ele_Si(const Char_t *eachfile= "/pnfs/desy.de/dphep/online/zeus/z/n
 	TH2D* h2ElecyRC_MC = new TH2D("h2ElecyRC_MC","Reco vs True (Inelasticity y)", 200, 0.0, 1.0, 200, 0.0, 1.0);
 	h2ElecyRC_MC->GetXaxis()->SetTitle("y_{RC}");
 	h2ElecyRC_MC->GetYaxis()->SetTitle("y_{MC}");
+
+	// Additional histograms for 0.04 < y < 0.4* and 0.4 < y < 0.95
+
+	// _____________ 0.04 < y < 0.4* _________________
+
+	TH2D* first_h2EEleRC_MC  = new TH2D("first_h2EEleRC_MC", "Reco vs True - E (0.04 < y < 0.4)", 100, 0, 50, 100, 0, 50);
+	h2EEleRC_MC->GetXaxis()->SetTitle("E_{RC}");
+	h2EEleRC_MC->GetYaxis()->SetTitle("E_{MC}");
+
+	TH2D* first_h2EtEleRC_MC = new TH2D("first_h2EtEleRC_MC", "Reco vs True - Et (0.04 < y < 0.4)", 100, 0, 20, 100, 0, 20);
+	h2EtEleRC_MC->GetXaxis()->SetTitle("E_{T, RC}");
+	h2EtEleRC_MC->GetYaxis()->SetTitle("E_{T, MC}");
+
+	TH2D* first_h2ElecThetaRC_MC = new TH2D("first_hElecThetaRC_MC", "Reco vs True - #theta (0.04 < y < 0.4)", 100, 130., 180., 100, 130., 180.);
+	h2ElecThetaRC_MC->GetXaxis()->SetTitle("#theta_{RC}");
+	h2ElecThetaRC_MC->GetYaxis()->SetTitle("#theta_{MC}");
+
+	TH2D* first_h2ElecQ2RC_MC = new TH2D("first_h2ElecQ2RC_MC","Reco vs True - Q^{2} (0.04 < y < 0.4)", q2end-q2start, q2start, q2end, q2end-q2start, q2start, q2end);
+	h2ElecQ2RC_MC->GetXaxis()->SetTitle("Q^{2}_{RC}");
+	h2ElecQ2RC_MC->GetYaxis()->SetTitle("Q^{2}_{MC}");
+
+	TH2D* first_h2ElecXRC_MC = new TH2D("first_h2ElecXRC_MC","Reco vs True - x (0.04 < y < 0.4)", 200, 2.e-5, 2.e-1, 200, 2.e-5, 2.e-1);
+	h2ElecXRC_MC->GetXaxis()->SetTitle("x_{RC}");
+	h2ElecXRC_MC->GetYaxis()->SetTitle("x_{MC}");
+
+	TH2D* first_h2ElecyRC_MC = new TH2D("first_h2ElecyRC_MC","Reco vs True y (0.04 < y < 0.4)", 200, 0.0, 1.0, 200, 0.0, 1.0);
+	h2ElecyRC_MC->GetXaxis()->SetTitle("y_{RC}");
+	h2ElecyRC_MC->GetYaxis()->SetTitle("y_{MC}");
+
+	// _____________ 0.4 < y < 0.95 _________________
+	TH2D* second_h2EEleRC_MC  = new TH2D("second_h2EEleRC_MC", "Reco vs True - E (0.4 < y < 0.95)", 100, 0, 50, 100, 0, 50);
+	h2EEleRC_MC->GetXaxis()->SetTitle("E_{RC}");
+	h2EEleRC_MC->GetYaxis()->SetTitle("E_{MC}");
+
+	TH2D* second_h2EtEleRC_MC = new TH2D("second_h2EtEleRC_MC", "Reco vs True - Et (0.4 < y < 0.95)", 100, 0, 20, 100, 0, 20);
+	h2EtEleRC_MC->GetXaxis()->SetTitle("E_{T, RC}");
+	h2EtEleRC_MC->GetYaxis()->SetTitle("E_{T, MC}");
+
+	TH2D* second_h2ElecThetaRC_MC = new TH2D("second_hElecThetaRC_MC", "Reco vs True - #theta (0.4 < y < 0.95)", 100, 130., 180., 100, 130., 180.);
+	h2ElecThetaRC_MC->GetXaxis()->SetTitle("#theta_{RC}");
+	h2ElecThetaRC_MC->GetYaxis()->SetTitle("#theta_{MC}");
+
+	TH2D* second_h2ElecQ2RC_MC = new TH2D("second_h2ElecQ2RC_MC","Reco vs True - Q^{2} (0.4 < y < 0.95)", q2end-q2start, q2start, q2end, q2end-q2start, q2start, q2end);
+	h2ElecQ2RC_MC->GetXaxis()->SetTitle("Q^{2}_{RC}");
+	h2ElecQ2RC_MC->GetYaxis()->SetTitle("Q^{2}_{MC}");
+
+	TH2D* second_h2ElecXRC_MC = new TH2D("second_h2ElecXRC_MC","Reco vs True - x (0.4 < y < 0.95)", 200, 2.e-5, 2.e-1, 200, 2.e-5, 2.e-1);
+	h2ElecXRC_MC->GetXaxis()->SetTitle("x_{RC}");
+	h2ElecXRC_MC->GetYaxis()->SetTitle("x_{MC}");
+
+	TH2D* second_h2ElecyRC_MC = new TH2D("second_h2ElecyRC_MC","Reco vs True y (0.4 < y < 0.95)", 200, 0.0, 1.0, 200, 0.0, 1.0);
+	h2ElecyRC_MC->GetXaxis()->SetTitle("y_{RC}");
+	h2ElecyRC_MC->GetYaxis()->SetTitle("y_{MC}");
+
+
+
 
 
 	// TProfile* profEEleRC_MC  = new TProfile("profEEleRC_MC", "Reco vs True (E, profile, best candidate)", 100, 0, 50, 0, 50);
@@ -251,9 +299,6 @@ void matches_ele_Si(const Char_t *eachfile= "/pnfs/desy.de/dphep/online/zeus/z/n
 		h2EEleRC_MC->Fill(E_RC_min, e_MC.E());
 		h2EtEleRC_MC->Fill(Et_RC_min, e_MC.Et());
 
-		h2dEEleRC_MC->Fill(E_RC_min - e_MC.E(), dR_min);
-		h2dEtEleRC_MC->Fill(Et_RC_min - e_MC.Et(), dR_min);
-
 		// Additional variables
 		float theta_MC = TMath::Pi() + TMath::ATan( TMath::Sqrt(px_MC*px_MC+py_MC*py_MC) / pz_MC);
 		h2ElecThetaRC_MC->Fill(JetOrange->Sith[iele]*180.0/TMath::Pi(),theta_MC*180.0/TMath::Pi());
@@ -276,7 +321,59 @@ void matches_ele_Si(const Char_t *eachfile= "/pnfs/desy.de/dphep/online/zeus/z/n
 			h2ElecyRC_MC->Fill(JetOrange->Siyda[iele],JetOrange->Mc_y);
 		}
 
+		// Additional histograms for 0.04 < y < 0.4* and 0.4 < y < 0.95 
 
+		if(JetOrange->Siyjb[iele] > 0.04 && JetOrange->Siyel[iele] < 0.4)
+		{
+			first_h2EEleRC_MC->Fill(E_RC_min, e_MC.E());
+			first_h2EtEleRC_MC->Fill(Et_RC_min, e_MC.Et());
+
+			// Additional variables
+			theta_MC = TMath::Pi() + TMath::ATan( TMath::Sqrt(px_MC*px_MC+py_MC*py_MC) / pz_MC);
+			first_h2ElecThetaRC_MC->Fill(JetOrange->Sith[iele]*180.0/TMath::Pi(),theta_MC*180.0/TMath::Pi());
+
+			if (method=="EM"){
+				first_h2ElecQ2RC_MC->Fill(JetOrange->Siq2el[iele],JetOrange->Mc_q2);
+				first_h2ElecXRC_MC->Fill(JetOrange->Sixel[iele],JetOrange->Mc_x);
+				first_h2ElecyRC_MC->Fill(JetOrange->Siyel[iele],JetOrange->Mc_y);
+			}
+			if (method=="JB"){
+				first_h2ElecQ2RC_MC->Fill(JetOrange->Siq2jb[iele],JetOrange->Mc_q2);
+				first_h2ElecXRC_MC->Fill(JetOrange->Sixjb[iele],JetOrange->Mc_x);
+				first_h2ElecyRC_MC->Fill(JetOrange->Siyjb[iele],JetOrange->Mc_y);
+			}
+			if (method=="DA"){
+				first_h2ElecQ2RC_MC->Fill(JetOrange->Siq2da[iele],JetOrange->Mc_q2);
+				first_h2ElecXRC_MC->Fill(JetOrange->Sixda[iele],JetOrange->Mc_x);
+				first_h2ElecyRC_MC->Fill(JetOrange->Siyda[iele],JetOrange->Mc_y);
+			}
+		}
+
+		if(JetOrange->Siyel[iele] >= 0.4 && JetOrange->Siyel[iele] < 0.95)
+		{
+			second_h2EEleRC_MC->Fill(E_RC_min, e_MC.E());
+			second_h2EtEleRC_MC->Fill(Et_RC_min, e_MC.Et());
+
+			// Additional variables
+			theta_MC = TMath::Pi() + TMath::ATan( TMath::Sqrt(px_MC*px_MC+py_MC*py_MC) / pz_MC);
+			second_h2ElecThetaRC_MC->Fill(JetOrange->Sith[iele]*180.0/TMath::Pi(),theta_MC*180.0/TMath::Pi());
+
+			if (method=="EM"){
+				second_h2ElecQ2RC_MC->Fill(JetOrange->Siq2el[iele],JetOrange->Mc_q2);
+				second_h2ElecXRC_MC->Fill(JetOrange->Sixel[iele],JetOrange->Mc_x);
+				second_h2ElecyRC_MC->Fill(JetOrange->Siyel[iele],JetOrange->Mc_y);
+			}
+			if (method=="JB"){
+				second_h2ElecQ2RC_MC->Fill(JetOrange->Siq2jb[iele],JetOrange->Mc_q2);
+				second_h2ElecXRC_MC->Fill(JetOrange->Sixjb[iele],JetOrange->Mc_x);
+				second_h2ElecyRC_MC->Fill(JetOrange->Siyjb[iele],JetOrange->Mc_y);
+			}
+			if (method=="DA"){
+				second_h2ElecQ2RC_MC->Fill(JetOrange->Siq2da[iele],JetOrange->Mc_q2);
+				second_h2ElecXRC_MC->Fill(JetOrange->Sixda[iele],JetOrange->Mc_x);
+				second_h2ElecyRC_MC->Fill(JetOrange->Siyda[iele],JetOrange->Mc_y);
+			}
+		}
 		// profEEleRC_MC->Fill(E_RC_min, e_MC.E());
 		// profEtEleRC_MC->Fill(Et_RC_min, e_MC.Et());
 
@@ -295,15 +392,27 @@ void matches_ele_Si(const Char_t *eachfile= "/pnfs/desy.de/dphep/online/zeus/z/n
 	//Jet
 	h2EEleRC_MC->Write();
 	h2EtEleRC_MC->Write();
-	h2dEEleRC_MC->Write();
-	h2dEtEleRC_MC->Write();
-
 	h2ElecThetaRC_MC->Write();
 	h2ElecQ2RC_MC->Write();
 	h2ElecXRC_MC->Write();
 	h2ElecyRC_MC->Write();
 	// profEEleRC_MC->Write();
 	// profEtEleRC_MC->Write();
+
+	first_h2EEleRC_MC->Write();
+	first_h2EtEleRC_MC->Write();
+	first_h2ElecThetaRC_MC->Write();
+	first_h2ElecQ2RC_MC->Write();
+	first_h2ElecXRC_MC->Write();
+	first_h2ElecyRC_MC->Write();
+
+	second_h2EEleRC_MC->Write();
+	second_h2EtEleRC_MC->Write();
+	second_h2ElecThetaRC_MC->Write();
+	second_h2ElecQ2RC_MC->Write();
+	second_h2ElecXRC_MC->Write();
+	second_h2ElecyRC_MC->Write();
+
 	fout.Close();
 	/////END Save histograms in a file <--5-- 
 
