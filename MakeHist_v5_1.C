@@ -157,7 +157,7 @@ void MakeHist_v5_1(const Char_t *eachfile= "~/Desktop/zeusmc.hfix627.h1391.0607p
     //if(JetOrange->Siq2el[0]<10) continue;
     /////Cleanning cuts
     if(JetOrange->Zvtx<-40 || JetOrange->Zvtx>40 || JetOrange->Zvtx==0)    continue;
-    //if(JetOrange->Cal_empz<35 || JetOrange->Cal_empz>65) continue;  
+    if(JetOrange->Cal_empz<35 || JetOrange->Cal_empz>65) continue;  
     //Calculate E-pz from zufo
     Float_t Empz = 0.;
     for(Int_t zloop=0; zloop<JetOrange->Nzufos; zloop++){
@@ -190,25 +190,25 @@ void MakeHist_v5_1(const Char_t *eachfile= "~/Desktop/zeusmc.hfix627.h1391.0607p
     // Addition DIS cuts
     Bool_t dis_cuts=true;
     // Energy in cone
-//    if (JetOrange->Sienin[0] < 0.1*(JetOrange->Siein[0] + JetOrange->Sienin[0]))
-//	     ;
-//    else
-//	     dis_cuts=false; 
-//    // Lepton probability
-//    if (JetOrange->Siprob[0] > 0.9)
-//    	     ;
-//    else
-//    	     dis_cuts=false;
+    if (JetOrange->Sienin[0] < 0.1*(JetOrange->Siein[0] + JetOrange->Sienin[0]))
+	     ;
+    else
+	     dis_cuts=false; 
+////    // Lepton probability
+    if (JetOrange->Siprob[0] > 0.9)
+    	     ;
+    else
+    	     dis_cuts=false;
     // Lepton track 
-    if (JetOrange->Sidca[0] < 20. && JetOrange->Sidca[0] >= 0.)
-             ;
-    else {
-              TVector3 leptonPosition(JetOrange->Sipos[0][0], JetOrange->Sipos[0][1], JetOrange->Sipos[0][2]);
-              if (leptonPosition.Theta() < 0.4 || leptonPosition.Theta() > 2.721)
-        	;
-              else
-        	dis_cuts=false;
-    }
+//    if (JetOrange->Sidca[0] < 20. && JetOrange->Sidca[0] >= 0.)
+//             ;
+//    else {
+//              TVector3 leptonPosition(JetOrange->Sipos[0][0], JetOrange->Sipos[0][1], JetOrange->Sipos[0][2]);
+//              if (leptonPosition.Theta() < 0.4 || leptonPosition.Theta() > 2.721)
+//        	;
+//              else
+//        	dis_cuts=false;
+//    }
 
     if(dis_cuts==false) continue;
 
