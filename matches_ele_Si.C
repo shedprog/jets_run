@@ -102,7 +102,6 @@ void matches_ele_Si(const Char_t *eachfile= "/pnfs/desy.de/dphep/online/zeus/z/n
 	JetOrange2018 *JetOrange = new JetOrange2018();
 	JetOrange->Init(firstJet);
 	JetOrange->SetData(isdata);
-
 	TString period;
 	if(runnumber>=47010 && runnumber <=51245)  period = "04p";
 	if(runnumber>=52258 && runnumber <=57123)  period = "0405e";
@@ -194,7 +193,13 @@ void matches_ele_Si(const Char_t *eachfile= "/pnfs/desy.de/dphep/online/zeus/z/n
 	h2ElecyRC_MC->GetYaxis()->SetTitle("y_{MC}");
 
 
+	// Add Cal_empz and zufo_empz comperiros
+	TH2D* h2_cal_empz = new TH2D("h2_cal_empz","Cal_empz vs Empz(zufo)", 200, 35, 65, 35, 65);
+	h2_cal_empz->GetXaxis()->SetTitle("Cal_empz");	
+	h2_cal_empz->GetYaxis()->SetTitle("Empz(zufo)");
 
+	TH1D* cal_empz_min_Empz = new TH1D("cal_empz_min_Empz","cal_empz_min_Empz - Empz",200, -100,100);
+	cal_empz_min_Empz->GetXaxis()->SetTitle("cal_empz-Empz(zufo)");
 
 
 	// TProfile* profEEleRC_MC  = new TProfile("profEEleRC_MC", "Reco vs True (E, profile, best candidate)", 100, 0, 50, 0, 50);
@@ -266,7 +271,7 @@ void matches_ele_Si(const Char_t *eachfile= "/pnfs/desy.de/dphep/online/zeus/z/n
 		if(JetOrange->Siq2el[iele]<10) continue;
 		/////Cleanning cuts
 		if(JetOrange->Zvtx<-40 || JetOrange->Zvtx>40 || JetOrange->Zvtx==0)    continue;
-		//if(JetOrange->Cal_empz<35 || JetOrange->Cal_empz>65) continue;  
+		if(JetOrange->Cal_empz<35 || JetOrange->Cal_empz>65) continue;  
 		//Calculate E-pz from zufo
 		Float_t Empz = 0.;
 		for(Int_t zloop=0; zloop<JetOrange->Nzufos; zloop++){
@@ -303,7 +308,7 @@ void matches_ele_Si(const Char_t *eachfile= "/pnfs/desy.de/dphep/online/zeus/z/n
 		float theta_MC = TMath::Pi() + TMath::ATan( TMath::Sqrt(px_MC*px_MC+py_MC*py_MC) / pz_MC);
 		h2ElecThetaRC_MC->Fill(JetOrange->Sith[iele]*180.0/TMath::Pi(),theta_MC*180.0/TMath::Pi());
 
-		TString method("DA");
+		TString method("EM");
 
 		if (method=="EM"){
 			h2ElecQ2RC_MC->Fill(JetOrange->Siq2el[iele],JetOrange->Mc_q2);
@@ -374,6 +379,9 @@ void matches_ele_Si(const Char_t *eachfile= "/pnfs/desy.de/dphep/online/zeus/z/n
 				second_h2ElecyRC_MC->Fill(JetOrange->Siyda[iele],JetOrange->Mc_y);
 			}
 		}
+
+		h2_cal_empz->Fill(JetOrange->Cal_empz,Empz);
+		cal_empz_min_Empz->Fill(JetOrange->Cal_empz-Empz);
 		// profEEleRC_MC->Fill(E_RC_min, e_MC.E());
 		// profEtEleRC_MC->Fill(Et_RC_min, e_MC.Et());
 
@@ -408,7 +416,7 @@ void matches_ele_Si(const Char_t *eachfile= "/pnfs/desy.de/dphep/online/zeus/z/n
 
 	second_h2EEleRC_MC->Write();
 	second_h2EtEleRC_MC->Write();
-	second_h2ElecThetaRC_MC->Write();
+	second_h2ElecThetaRC_MC->Write();	second_h2ElecQ2RC_MC->Write();
 	second_h2ElecQ2RC_MC->Write();
 	second_h2ElecXRC_MC->Write();
 	second_h2ElecyRC_MC->Write();
