@@ -194,11 +194,11 @@ void matches_ele_Si(const Char_t *eachfile= "/pnfs/desy.de/dphep/online/zeus/z/n
 
 
 	// Add Cal_empz and zufo_empz comperiros
-	TH2D* h2_cal_empz = new TH2D("h2_cal_empz","Cal_empz vs Empz(zufo)", 200, 35, 65, 35, 65);
+	TH2D* h2_cal_empz = new TH2D("h2_cal_empz","Cal_empz vs Empz(zufo)", 200, 35.0, 65.0,200, 35.0, 65.0);
 	h2_cal_empz->GetXaxis()->SetTitle("Cal_empz");	
 	h2_cal_empz->GetYaxis()->SetTitle("Empz(zufo)");
 
-	TH1D* cal_empz_min_Empz = new TH1D("cal_empz_min_Empz","cal_empz_min_Empz - Empz",200, -100,100);
+	TH1D* cal_empz_min_Empz = new TH1D("cal_empz_min_Empz","cal_empz_min_Empz - Empz",200, -100.0,100.0);
 	cal_empz_min_Empz->GetXaxis()->SetTitle("cal_empz-Empz(zufo)");
 
 
@@ -420,6 +420,9 @@ void matches_ele_Si(const Char_t *eachfile= "/pnfs/desy.de/dphep/online/zeus/z/n
 	second_h2ElecQ2RC_MC->Write();
 	second_h2ElecXRC_MC->Write();
 	second_h2ElecyRC_MC->Write();
+
+	h2_cal_empz->Write();
+	cal_empz_min_Empz->Write();
 
 	fout.Close();
 	/////END Save histograms in a file <--5-- 
