@@ -23,7 +23,7 @@ DATA=/afs/desy.de/user/q/quintera/public/Jets/Lists/Sample_0607p.list
 
 list_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"/lists
 WORKDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-OUTDIR=/nfs/dust/zeus/group/mykytaua/Jets_nfs/12.04.2019/GEN_OUT
+OUTDIR=/nfs/dust/zeus/group/mykytaua/Jets_nfs/20.04.2019/lepton_prob_energy
 
 
 while [ ! $# -eq 0 ]

@@ -187,6 +187,30 @@ void MakeHist_v5_1(const Char_t *eachfile= "~/Desktop/zeusmc.hfix627.h1391.0607p
     
     /////////////////////END Define Cuts <--3.1--
     
+    // Addition DIS cuts
+    Bool_t dis_cuts=true;
+    // Energy in cone
+    if (JetOrange->Sienin[0] < 0.1*(JetOrange->Siein[0] + JetOrange->Sienin[0]))
+	     ;
+    else
+	     dis_cuts=false; 
+////    // Lepton probability
+    if (JetOrange->Siprob[0] > 0.9)
+    	     ;
+    else
+    	     dis_cuts=false;
+    // Lepton track 
+//    if (JetOrange->Sidca[0] < 20. && JetOrange->Sidca[0] >= 0.)
+//             ;
+//    else {
+//              TVector3 leptonPosition(JetOrange->Sipos[0][0], JetOrange->Sipos[0][1], JetOrange->Sipos[0][2]);
+//              if (leptonPosition.Theta() < 0.4 || leptonPosition.Theta() > 2.721)
+//        	;
+//              else
+//        	dis_cuts=false;
+//    }
+
+    if(dis_cuts==false) continue;
 
     /////////////////////Fill histograms --3.2-->
     if(!isdata) Weight = CalcWeight(period,JetOrange->Siq2el[0]);
