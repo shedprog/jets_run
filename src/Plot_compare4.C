@@ -1,6 +1,7 @@
 #include <string>
 #include "Riostream.h"
 #include "TH1.h"
+#include "TF1.h"
 #include "TCanvas.h"
 #include "TLegend.h"
 #include "TFile.h"
@@ -9,9 +10,23 @@
 #include "TMath.h"
 #include "TStyle.h"
 
+TF1* FitRatio(TH1D *hdataElecE_R)
+{
+	
+  //	TCanvas *c = new TCanvas("c","Event",0,0,1300,900);
+	TF1 *pol = new TF1("pol","[0]+[1]*x+[2]*x**2+[3]*x**3", 0.0, 60.0);
+	//pol->SetParameter(0,0,0);
+	hdataElecE_R->Fit("pol");
+	//pol->Draw("AP");
+	return pol;
+
+}
+
+
 //--->START MAIN PROGRAM
 //________________________________________________________________________________
-void Plot_compare4(){
+void Plot_compare4(const Char_t *datapath= "./output_Sample_0607p.list.root",
+		   const Char_t *mcpath= "./output_Sample_Ariadne_Low_Q2_NC_DIS_0607p.list.root"){
  
   // gROOT->SetBatch(kTRUE); // To turn off screen output
  
@@ -22,8 +37,8 @@ void Plot_compare4(){
   gStyle->SetOptStat(0);
   
   /////Read files --1-->
-  TFile *fdata = new TFile("./output_Sample_0607p.list.root");  
-  TFile *fmc = new TFile("./output_Sample_Ariadne_Low_Q2_NC_DIS_0607p.list.root");
+  TFile *fdata = new TFile(datapath);  
+  TFile *fmc = new TFile(mcpath);
   // TFile *fmc   = new TFile("./output_Sample_ari_incl_nc_DIS_lowQ2_0607p.list.root");
   // TFile *fmc   = new TFile("./output_Sample_Herwig_PHP_QCD_040506e.list.root");
   // TFile *fPHP = new TFile("./output_Sample_Herwig_PHP_QCD_resolved_0607p.list.root");
@@ -120,7 +135,24 @@ void Plot_compare4(){
   
   cout << Form( "Number of Events Data: %.0f",hdataVertexZ->GetEntries()) << endl;
   cout << Form( "Number of Events MC  : %.0f",hmcVertexZ->GetEntries()) << endl;
+
+  //~~~~~~~~~~~~~~~~~~ReWeighting by the Lepton Energy~~~~~~~~~~~~~~~~~~~~~~~~~~
   
+  TH1D *hdataElecE_R_= (TH1D*) hdataElecE->Clone();
+  hdataElecE_R_->Divide(hmcElecE);
+
+  TCanvas *can = new TCanvas("can","no",0,0,1300,900);
+  can->cd();
+  TF1* l = FitRatio(hdataElecE_R_); 
+  hdataElecE_R_->Draw(); 
+  l->Draw("same");
+  
+  //char stop;
+  //std::cout<<"stop"<<"\n";
+  //std::cin>>stop;
+  
+  //~~~~~~~~~~~~~~~~~~~~End of ReWeighting~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
   //////Event Plots --3-->
   TCanvas *c0 = new TCanvas("c0","Event",0,0,1300,900);
   c0->cd();
@@ -683,7 +715,7 @@ void Plot_compare4(){
   h2mcElecPos->Draw("colz");
   */
 
- ce->cd(6);
+  ce->cd(6);
   //  ce->cd(5)->SetLogy();
   TPad *pad620 = new TPad("pad620","pad620", 0.0,0.3,1.0,1.0);
   //pad620->SetLogy();
@@ -1034,6 +1066,7 @@ void Plot_compare4(){
   gSystem->Exec("rm -rf ./plots_old");
   gSystem->Exec("mv ./plots ./plots_old");  
   gSystem->Exec("mkdir -p ./plots");
+  can->SaveAs("./plots/re-weight.pdf");
   c0->SaveAs("./plots/c0.pdf");
   ce->SaveAs("./plots/ce.pdf");
   c1->SaveAs("./plots/c1.pdf");

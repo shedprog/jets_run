@@ -60,10 +60,13 @@ do
             	 s|OUTPUT_PATH|$data_outdir|g\
             	" $WORKDIR/runInc.sh > $output/runInc.sh
 
+	    cp -rf $WORKDIR/src $output/
+	    cp -rf $WORKDIR/make_hists.cxx $output/
+
             # ln -s $cut_file $output/cuts.data
             #cp $WORKDIR/matches_ele_Si.C $output/matches_ele_Si.C
-            cp $WORKDIR/MakeHist_v5_1.C $output/MakeHist_v5_1.C
-            cp $WORKDIR/JetOrange2018.h $output/JetOrange2018.h
+            #cp $WORKDIR/MakeHist_v5_1.C $output/MakeHist_v5_1.C
+            #cp $WORKDIR/JetOrange2018.h $output/JetOrange2018.h
 
             cd $output
            	condor_submit $output/QA.job
@@ -101,8 +104,11 @@ do
                     " $WORKDIR/runInc.sh > $output/runInc.sh
 
                 # ln -s $cut_file $output/cuts.data
-                cp $WORKDIR/matches_ele_Si.C $output/matches_ele_Si.C
-                cp $WORKDIR/JetOrange2018.h $output/JetOrange2018.h
+                # cp $WORKDIR/matches_ele_Si.C $output/matches_ele_Si.C
+                # cp $WORKDIR/JetOrange2018.h $output/JetOrange2018.h
+
+	        cp -rf $WORKDIR/src $output/
+	        cp -rf $WORKDIR/make_hists.cxx $output/
 
                 cd $output
                 condor_submit $output/QA.job
