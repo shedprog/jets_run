@@ -10,6 +10,7 @@
 #include "TMath.h"
 #include "TStyle.h"
 
+/*
 TF1* FitRatio(TH1D *hdataElecE_R)
 {
 	
@@ -21,7 +22,7 @@ TF1* FitRatio(TH1D *hdataElecE_R)
 	return pol;
 
 }
-
+*/
 
 //--->START MAIN PROGRAM
 //________________________________________________________________________________
@@ -45,7 +46,7 @@ void Plot_compare4(const Char_t *datapath= "./output_Sample_0607p.list.root",
 
   /////END Read files <--1--
 
-  Bool_t REBIN = 1;    
+  Bool_t REBIN = 0;    
   Int_t binXX = 5;
   
   ////Define Histograms --2-->
@@ -137,7 +138,7 @@ void Plot_compare4(const Char_t *datapath= "./output_Sample_0607p.list.root",
   cout << Form( "Number of Events MC  : %.0f",hmcVertexZ->GetEntries()) << endl;
 
   //~~~~~~~~~~~~~~~~~~ReWeighting by the Lepton Energy~~~~~~~~~~~~~~~~~~~~~~~~~~
-  
+  /*
   TH1D *hdataElecE_R_= (TH1D*) hdataElecE->Clone();
   hdataElecE_R_->Divide(hmcElecE);
 
@@ -150,7 +151,7 @@ void Plot_compare4(const Char_t *datapath= "./output_Sample_0607p.list.root",
   //char stop;
   //std::cout<<"stop"<<"\n";
   //std::cin>>stop;
-  
+  */
   //~~~~~~~~~~~~~~~~~~~~End of ReWeighting~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   //////Event Plots --3-->
@@ -1066,7 +1067,7 @@ void Plot_compare4(const Char_t *datapath= "./output_Sample_0607p.list.root",
   gSystem->Exec("rm -rf ./plots_old");
   gSystem->Exec("mv ./plots ./plots_old");  
   gSystem->Exec("mkdir -p ./plots");
-  can->SaveAs("./plots/re-weight.pdf");
+  //can->SaveAs("./plots/re-weight.pdf");
   c0->SaveAs("./plots/c0.pdf");
   ce->SaveAs("./plots/ce.pdf");
   c1->SaveAs("./plots/c1.pdf");

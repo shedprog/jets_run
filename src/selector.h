@@ -14,6 +14,7 @@
 #include "TROOT.h"
 #include "TLorentzVector.h"
 #include "cuts.h"
+#include "LepE_calibr.h"
 
 //using namespace std;
 
@@ -24,14 +25,14 @@
 #define Selector_h
 
 //Try to re-weight by lepton energy
-Float_t CalcWeight(Float_t val)
-{
-	return 1.20214 - 9.38496e-02*val + 4.07696e-03*val*val - 5.45586*val*val*val;
-}
+//Float_t CalcWeight(Float_t val)
+//{
+//	return 1.20214 - 9.38496e-02*val + 4.07696e-03*val*val - 5.45586*val*val*val;
+//}
 
 namespace ControlPlot {
 class Selector : public JetOrangeSelect {
-public:  
+private:  
 
 //  Int_t q2start = 10;
 //  Int_t q2end   = 350;
@@ -64,7 +65,11 @@ public:
 
   TH1D* hDecorrPhi[5];
   TH2D* h2PtDecorrPhi[5];
-  
+
+public:
+
+  Calibrator* BinCalibr;
+
   Selector():JetOrangeSelect() {};
 
   void InitHists(){
@@ -104,15 +109,15 @@ public:
 	  ////END Define Histograms <--2--
   };
 
-  void FillHists(bool isdata){
+  void FillHists(bool isdata, bool isCalibr){
     
-	    Float_t Weight = 1.0;
-	    if(!isdata) Weight=CalcWeight(Siecorr[0][2]);
+	    Float_t Weight = 1.0;	
+	    if(!isdata && isCalibr) Weight=BinCalibr->getWeight(Siecorr[0][2]);
 	
 	    Float_t Empz = 0.;
 	    for(Int_t zloop=0; zloop<Nzufos; zloop++){
-	      TLorentzVector v(Zufo[zloop][0], Zufo[zloop][1], 
-			       Zufo[zloop][2], Zufo[zloop][3]);
+	      //TLorentzVector v(Zufo[zloop][0], Zufo[zloop][1], 
+	      //	       Zufo[zloop][2], Zufo[zloop][3]);
 	      Empz += Zufo[zloop][3] - Zufo[zloop][2];
 	    }
 	
@@ -375,7 +380,7 @@ public:
 	if (dR_min > 0.5)
 		return false;
 
-	return JetOrangeSelect::CheckCuts(jentry,period);
+	return JetOrangeSelect::CheckCuts(period);
 	  
   }
 
@@ -383,8 +388,8 @@ public:
       
      Float_t Empz = 0.;
      for(Int_t zloop=0; zloop<Nzufos; zloop++){
-       TLorentzVector v(Zufo[zloop][0], Zufo[zloop][1], 
-         	       Zufo[zloop][2], Zufo[zloop][3]);
+       //TLorentzVector v(Zufo[zloop][0], Zufo[zloop][1], 
+       //  	       Zufo[zloop][2], Zufo[zloop][3]);
        Empz += Zufo[zloop][3] - Zufo[zloop][2];
      }
 

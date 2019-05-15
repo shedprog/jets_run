@@ -6,7 +6,7 @@ outdir=OUTPUT_PATH
 counter=0
 for infile in  `cat $data` ; do
     if [ "$counter" = "$1" ]; then  # Run parallel
-	root.exe ./make_hists.C\(\"$infile\",\"$outdir\"\)
+	root.exe ./make_hists.cxx\(\"$infile\",\"$outdir\"\)
 	let counter=counter+1
 	break
     fi

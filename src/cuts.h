@@ -16,9 +16,9 @@ class JetOrangeSelect : public JetOrange2018 {
 public:
 JetOrangeSelect():JetOrange2018(){};
 
-bool CheckCuts(Long64_t jentry, TString period){
+bool CheckCuts(TString period){
 
-    	 this->GetEntry(jentry);	  
+    	 //this->GetEntry(jentry);	  
     	 
 	 ////////////://///////Define Cuts --3.1-->
     	 /////Using only the electron with the highest probability Siq2el[0]
@@ -35,8 +35,8 @@ bool CheckCuts(Long64_t jentry, TString period){
 	  //Calculate E-pz from zufo
           Float_t Empz = 0.;
           for(Int_t zloop=0; zloop<Nzufos; zloop++){
-            TLorentzVector v(Zufo[zloop][0], Zufo[zloop][1], 
-              	       Zufo[zloop][2], Zufo[zloop][3]);
+            //TLorentzVector v(Zufo[zloop][0], Zufo[zloop][1], 
+            //  	       Zufo[zloop][2], Zufo[zloop][3]);
             Empz += Zufo[zloop][3] - Zufo[zloop][2];
           }
           //cout << Form("Calorimeter: %f     Zufo: %f     Diff: %f",JetOrange->Cal_empz,Empz,JetOrange->Cal_empz - Empz) << endl;
