@@ -59,7 +59,7 @@ void make_hists(const Char_t *eachfile= "~/Desktop/zeusmc.hfix627.h1391.0607p.q4
   Long64_t nentries = firstJet->GetEntriesFast();
   std::cout << "Number of events before the cuts: " << nentries << std::endl;
 
-  JetOrange->BinCalibr = new Calibrator("./new/Hist_0405e_52367_02.root","./new/Hist_hdsne25.h14207.djangoh.cdm.ele.q24.gnor2653.root");
+  JetOrange->BinCalibr = new Calibrator(period);
   Bool_t isCalibr = 1;
 
   for (Long64_t jentry=0; jentry<nentries;jentry++) {
