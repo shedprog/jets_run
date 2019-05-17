@@ -45,6 +45,8 @@ void Plot_compare4(const Char_t *datapath= "./output_Sample_0607p.list.root",
   // TFile *fPHP = new TFile("./output_Sample_Herwig_PHP_QCD_resolved_0607p.list.root");
 
   /////END Read files <--1--
+  Bool_t RESCALE = 0;
+  Bool_t RESCALE_INT = 1;
 
   Bool_t REBIN = 0;    
   Int_t binXX = 5;
@@ -185,7 +187,8 @@ void Plot_compare4(const Char_t *datapath= "./output_Sample_0607p.list.root",
   //
   if(REBIN) hmcVertexZ->Rebin(binXX);
   hmcVertexZ->SetLineColor(2);
-  hmcVertexZ->Scale(hdataVertexZ->GetEntries()/hmcVertexZ->GetEntries());
+  if(RESCALE) hmcVertexZ->Scale(hdataVertexZ->GetEntries()/hmcVertexZ->GetEntries());
+  if(RESCALE_INT) hmcVertexZ->Scale(hdataVertexZ->Integral()/hmcVertexZ->Integral());
   hmcVertexZ->Draw("same");
   legend0->AddEntry(hmcVertexZ,"MC", "l");
   legend0->SetTextSize(0.05);
@@ -234,7 +237,8 @@ void Plot_compare4(const Char_t *datapath= "./output_Sample_0607p.list.root",
   hdataQ2->Draw();
   if(REBIN) hmcQ2->Rebin(binXX);
   hmcQ2->SetLineColor(2);
-  hmcQ2->Scale(hdataQ2->GetEntries()/hmcQ2->GetEntries());
+  if(RESCALE) hmcQ2->Scale(hdataQ2->GetEntries()/hmcQ2->GetEntries());
+  if(RESCALE_INT) hmcQ2->Scale(hdataQ2->Integral()/hmcQ2->Integral()); 
   hmcQ2->Draw("same");
   legend0->Draw("hist p");
   /////
@@ -283,7 +287,8 @@ void Plot_compare4(const Char_t *datapath= "./output_Sample_0607p.list.root",
   //
   if(REBIN) hmcx->Rebin(binXX);
   hmcx->SetLineColor(2);
-  hmcx->Scale(hdatax->GetEntries()/hmcx->GetEntries());
+  if(RESCALE) hmcx->Scale(hdatax->GetEntries()/hmcx->GetEntries()); 
+  if(RESCALE_INT) hmcx->Scale(hdatax->Integral()/hmcx->Integral());
   hmcx->Draw("same");
   legend0->Draw("hist p");
   //
@@ -331,7 +336,8 @@ void Plot_compare4(const Char_t *datapath= "./output_Sample_0607p.list.root",
   hdataPtEt->Draw("");
   if(REBIN) hmcPtEt->Rebin(binXX);
   hmcPtEt->SetLineColor(2);
-  hmcPtEt->Scale(hdataPtEt->GetEntries()/hmcPtEt->GetEntries());
+  if(RESCALE) hmcPtEt->Scale(hdataPtEt->GetEntries()/hmcPtEt->GetEntries()); 
+  if(RESCALE_INT) hmcPtEt->Scale(hdataPtEt->Integral()/hmcPtEt->Integral());
   hmcPtEt->Draw("same");
   legend0->Draw("hist p");
   /////
@@ -397,7 +403,8 @@ void Plot_compare4(const Char_t *datapath= "./output_Sample_0607p.list.root",
   hdataGamma->Draw("");
   if(REBIN) hmcGamma->Rebin(binXX);
   hmcGamma->SetLineColor(2);
-  hmcGamma->Scale(hdataGamma->GetEntries()/hmcGamma->GetEntries());
+  if(RESCALE) hmcGamma->Scale(hdataGamma->GetEntries()/hmcGamma->GetEntries());
+  if(RESCALE_INT) hmcGamma->Scale(hdataGamma->Integral()/hmcGamma->Integral());
   hmcGamma->Draw("same");
   legend0->Draw("hist p");
   /////
@@ -459,7 +466,8 @@ void Plot_compare4(const Char_t *datapath= "./output_Sample_0607p.list.root",
   hdataEmpz->Draw("");
   if(REBIN) hmcEmpz->Rebin(binXX);
   hmcEmpz->SetLineColor(2);
-  hmcEmpz->Scale(hdataEmpz->GetEntries()/hmcEmpz->GetEntries());
+  if(RESCALE) hmcEmpz->Scale(hdataEmpz->GetEntries()/hmcEmpz->GetEntries());
+  if(RESCALE_INT) hmcEmpz->Scale(hdataEmpz->Integral()/hmcEmpz->Integral());
   hmcEmpz->Draw("same");
   legend0->Draw("hist p");
   /////
@@ -515,7 +523,8 @@ void Plot_compare4(const Char_t *datapath= "./output_Sample_0607p.list.root",
   //
   if(REBIN) hmcElecTheta->Rebin(binXX);
   hmcElecTheta->SetLineColor(2);
-  hmcElecTheta->Scale(hdataElecTheta->GetEntries()/hmcElecTheta->GetEntries());
+  if(RESCALE) hmcElecTheta->Scale(hdataElecTheta->GetEntries()/hmcElecTheta->GetEntries());
+  if(RESCALE_INT) hmcElecTheta->Scale(hdataElecTheta->Integral()/hmcElecTheta->Integral());
   hmcElecTheta->Draw("same");
   legend0->Draw("hist p");
   ////
@@ -564,7 +573,8 @@ void Plot_compare4(const Char_t *datapath= "./output_Sample_0607p.list.root",
   //
   if(REBIN) hmcElecE->Rebin(binXX);
   hmcElecE->SetLineColor(2);
-  hmcElecE->Scale(hdataElecE->GetEntries()/hmcElecE->GetEntries());
+  if(RESCALE) hmcElecE->Scale(hdataElecE->GetEntries()/hmcElecE->GetEntries());
+  if(RESCALE_INT) hmcElecE->Scale(hdataElecE->Integral()/hmcElecE->Integral());
   hmcElecE->Draw("same");
   legend0->Draw("hist p");
   ////
@@ -613,7 +623,8 @@ void Plot_compare4(const Char_t *datapath= "./output_Sample_0607p.list.root",
   //
   if(REBIN) hmcElecPhi->Rebin(binXX);
   hmcElecPhi->SetLineColor(2);
-  hmcElecPhi->Scale(hdataElecPhi->GetEntries()/hmcElecPhi->GetEntries());
+  if(RESCALE) hmcElecPhi->Scale(hdataElecPhi->GetEntries()/hmcElecPhi->GetEntries());
+  if(RESCALE_INT) hmcElecPhi->Scale(hdataElecPhi->Integral()/hmcElecPhi->Integral());
   hmcElecPhi->Draw("same");
   legend0->Draw("hist p");
  ////
@@ -661,7 +672,8 @@ void Plot_compare4(const Char_t *datapath= "./output_Sample_0607p.list.root",
   //
   if(REBIN) hmcElecProb->Rebin(binXX);
   hmcElecProb->SetLineColor(2);
-  hmcElecProb->Scale(hdataElecProb->GetEntries()/hmcElecProb->GetEntries());
+  if(RESCALE) hmcElecProb->Scale(hdataElecProb->GetEntries()/hmcElecProb->GetEntries());
+  if(RESCALE_INT) hmcElecProb->Scale(hdataElecProb->Integral()/hmcElecProb->Integral());
   hmcElecProb->Draw("same");
   legend0->Draw("hist p");
  ////
@@ -734,7 +746,8 @@ void Plot_compare4(const Char_t *datapath= "./output_Sample_0607p.list.root",
   //
   if(REBIN) hmcElecy->Rebin(binXX);
   hmcElecy->SetLineColor(2);
-  hmcElecy->Scale(hdataElecy->GetEntries()/hmcElecy->GetEntries());
+  if(RESCALE) hmcElecy->Scale(hdataElecy->GetEntries()/hmcElecy->GetEntries());
+  if(RESCALE_INT) hmcElecy->Scale(hdataElecy->Integral()/hmcElecy->Integral());
   hmcElecy->Draw("same");
   legend0->Draw("hist p");
  ////
@@ -790,7 +803,8 @@ void Plot_compare4(const Char_t *datapath= "./output_Sample_0607p.list.root",
   //
   if(REBIN) hmcJetEt->Rebin(binXX);
   hmcJetEt->SetLineColor(2);
-  hmcJetEt->Scale(hdataJetEt->GetEntries()/hmcJetEt->GetEntries());
+  if(RESCALE) hmcJetEt->Scale(hdataJetEt->GetEntries()/hmcJetEt->GetEntries());
+  if(RESCALE_INT) hmcJetEt->Scale(hdataJetEt->Integral()/hmcJetEt->Integral());
   hmcJetEt->Draw("same");
   legend0->Draw("hist p");
   //
@@ -840,7 +854,8 @@ void Plot_compare4(const Char_t *datapath= "./output_Sample_0607p.list.root",
   //
   if(REBIN) hmcJetPt->Rebin(binXX);
   hmcJetPt->SetLineColor(2);
-  hmcJetPt->Scale(hdataJetPt->GetEntries()/hmcJetPt->GetEntries());
+  if(RESCALE) hmcJetPt->Scale(hdataJetPt->GetEntries()/hmcJetPt->GetEntries());
+  if(RESCALE_INT) hmcJetPt->Scale(hdataJetPt->Integral()/hmcJetPt->Integral());
   hmcJetPt->Draw("same");
   legend0->Draw("hist p");
   c1->cd(2);
@@ -889,7 +904,8 @@ void Plot_compare4(const Char_t *datapath= "./output_Sample_0607p.list.root",
     //
   if(REBIN) hmcJetEta->Rebin(binXX);
   hmcJetEta->SetLineColor(2);
-  hmcJetEta->Scale(hdataJetEta->GetEntries()/hmcJetEta->GetEntries());
+  if(RESCALE) hmcJetEta->Scale(hdataJetEta->GetEntries()/hmcJetEta->GetEntries());
+  if(RESCALE_INT) hmcJetEta->Scale(hdataJetEta->Integral()/hmcJetEta->Integral());
   hmcJetEta->Draw("same");
   legend0->Draw("hist p");
   
@@ -936,7 +952,8 @@ void Plot_compare4(const Char_t *datapath= "./output_Sample_0607p.list.root",
   //
   if(REBIN) hmcJetPhi->Rebin(binXX);
   hmcJetPhi->SetLineColor(2);
-  hmcJetPhi->Scale(hdataJetPhi->GetEntries()/hmcJetPhi->GetEntries());
+  if(RESCALE) hmcJetPhi->Scale(hdataJetPhi->GetEntries()/hmcJetPhi->GetEntries());
+  if(RESCALE_INT) hmcJetPhi->Scale(hdataJetPhi->Integral()/hmcJetPhi->Integral());
   hmcJetPhi->Draw("same");
   legend0->Draw("hist p");
   c1->cd(4);
@@ -983,7 +1000,8 @@ void Plot_compare4(const Char_t *datapath= "./output_Sample_0607p.list.root",
   //
   if(REBIN) hmcDecorrPhi[0]->Rebin(binXX);
   hmcDecorrPhi[0]->SetLineColor(2);
-  hmcDecorrPhi[0]->Scale(hdataDecorrPhi[0]->GetEntries()/hmcDecorrPhi[0]->GetEntries());
+  if(RESCALE) hmcDecorrPhi[0]->Scale(hdataDecorrPhi[0]->GetEntries()/hmcDecorrPhi[0]->GetEntries());
+  if(RESCALE_INT) hmcDecorrPhi[0]->Scale(hdataDecorrPhi[0]->Integral()/hmcDecorrPhi[0]->Integral());
   hmcDecorrPhi[0]->Draw("same");
   legend0->Draw("hist p");
 
