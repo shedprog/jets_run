@@ -2,7 +2,9 @@
 #include "./src/selector.h"
 
 void make_hists(const Char_t *eachfile= "~/Desktop/zeusmc.hfix627.h1391.0607p.q4.ari_2911.root ", 
-	  const Char_t *outdir="./")
+	  const Char_t *outdir="./",
+	  const Char_t *BinCalibr_data="none",
+	  const Char_t *BinCalibr_mc="none")
 {
 
   //gROOT->cd();
@@ -59,8 +61,14 @@ void make_hists(const Char_t *eachfile= "~/Desktop/zeusmc.hfix627.h1391.0607p.q4
   Long64_t nentries = firstJet->GetEntriesFast();
   std::cout << "Number of events before the cuts: " << nentries << std::endl;
 
-  JetOrange->BinCalibr = new Calibrator(period);
-  Bool_t isCalibr = 1;
+  //calibration setup 
+  Bool_t isCalibr = 0;
+  if(BinCalibr_mc!="none")
+  {
+	std::cout<<"-> Bin by bin callibration of Lepton Energy - ON!\n";
+  	JetOrange->BinCalibr = new Calibrator(BinCalibr_data,BinCalibr_mc);
+        isCalibr = 1;
+  }
 
   for (Long64_t jentry=0; jentry<nentries;jentry++) {
     JetOrange->GetEntry(jentry);
