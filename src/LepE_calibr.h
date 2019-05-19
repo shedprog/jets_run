@@ -10,7 +10,7 @@
 
 class Calibrator {
 private:
-	TH1D* hdataElecE_R; //to avoid additional memory usege
+	TH1D* hdata_R; //to avoid additional memory usege
 	//TH1D* hmcElecE; 
 public:
 	Calibrator(const Char_t* path_data, const Char_t* path_mc)
@@ -21,17 +21,26 @@ public:
 		fdata = new TFile(path_data);  
         	fmc = new TFile(path_mc);
 
-		
-		hdataElecE_R = (TH1D*)fdata->Get("hElecE");
-		TH1D* hmcElecE   = (TH1D*)fmc->Get("hElecE");
+		// by Lepton Energy
+		//hdata_R = (TH1D*)fdata->Get("hElecE");
+		//TH1D* hmc   = (TH1D*)fmc->Get("hElecE");
+	
+		// by Lepton Angle
+	        hdata_R = (TH1D*)fdata->Get("hElecPhi");
+		TH1D* hmc = (TH1D*)fmc->Get("hElecPhi");	
+
+		// by Jet Angle
+	        //hdata_R = (TH1D*)fdata->Get("hJetPhi");
+		//TH1D* hmc = (TH1D*)fmc->Get("hJetPhi" );	
+
 		////hmcElecE->Scale(hmcElecE->GetEntries()/hdataElecE_R->GetEntries());
-		hdataElecE_R->Divide(hmcElecE);
+		hdata_R->Divide(hmc);
 	}
 
-	Float_t getWeight(Float_t leptonE)
+	Float_t getWeight(Float_t X)
 	{
-		int k = hdataElecE_R->GetXaxis()->FindBin(leptonE);
-		return hdataElecE_R->GetBinContent(k);
+		int k = hdata_R->GetXaxis()->FindBin(X);
+		return hdata_R->GetBinContent(k);
 	}
 
 	

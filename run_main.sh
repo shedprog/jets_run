@@ -24,7 +24,7 @@ PATH_0607p_DATA=/nfs/dust/zeus/group/mykytaua/Jets_nfs/2019.05.15/control_plots_
 list_dir=/nfs/dust/zeus/group/mykytaua/Jets_nfs/List_contr_plots
 WORKDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 #OUTDIR=/nfs/dust/zeus/group/mykytaua/Jets_nfs/20.04.2019/lepton_prob_energy
-OUTDIR=/nfs/dust/zeus/group/mykytaua/Jets_nfs/2019.05.15/control_plots_re-weight_final
+OUTDIR=/nfs/dust/zeus/group/mykytaua/Jets_nfs/2019.05.19/control_plots
 mkdir -p $OUTDIR
 
 while [ ! $# -eq 0 ]
@@ -190,7 +190,20 @@ do
             done 
             shift
             ;;
+	--assert| -as)
+	    
+      	    for out in ${OUTDIR}/*
+	    do
+		filename=$(basename $out | sed "s|output_||g")
+		HISTS=$(ls ${out}/output | wc -l)
+		SETS=$(cat ${list_dir}/${filename} | wc -l)
+		echo $filename
+		echo $HISTS $SETS
+		
+            done
 
+	    shift
+	    ;;
         *)
             echo 'Not available flag!'
             break

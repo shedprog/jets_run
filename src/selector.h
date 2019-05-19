@@ -70,7 +70,7 @@ public:
 
   Calibrator* BinCalibr;
 
-  Selector():JetOrangeSelect() {};
+  Selector(TTree *tree) : JetOrangeSelect(tree) {};
 
   void InitHists(){
 	 
