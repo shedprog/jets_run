@@ -112,8 +112,10 @@ public:
   void FillHists(bool isdata, bool isCalibr){
     
 	    Float_t Weight = 1.0;	
-	    if(!isdata && isCalibr) Weight=BinCalibr->getWeight(Siecorr[0][2]);
-	
+	    //if(!isdata && isCalibr) Weight=BinCalibr->getWeight(Siecorr[0][2]);
+	    if(!isdata && isCalibr) Weight=BinCalibr->getWeight(Siph[0]) ; //Lepton phi
+	    //if(!isdata && isCalibr) Weight=BinCalibr->getWeight(Kt_phijet_b[0]); //Jet phi
+
 	    Float_t Empz = 0.;
 	    for(Int_t zloop=0; zloop<Nzufos; zloop++){
 	      //TLorentzVector v(Zufo[zloop][0], Zufo[zloop][1], 

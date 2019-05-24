@@ -37,6 +37,7 @@ public:
 		hdata_R->Divide(hmc);
 	}
 
+	//Here, X any variable
 	Float_t getWeight(Float_t X)
 	{
 		int k = hdata_R->GetXaxis()->FindBin(X);

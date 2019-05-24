@@ -10,13 +10,13 @@ DATA_06e=/nfs/dust/zeus/group/mykytaua/Jets_nfs/List_contr_plots/Sample_06e.list
 #MC 0506e + results for calibration
 MC_05e=/nfs/dust/zeus/group/mykytaua/Jets_nfs/List_contr_plots/Sample_Ariadne_Low_Q2_NC_DIS_05e.list
 MC_06e=/nfs/dust/zeus/group/mykytaua/Jets_nfs/List_contr_plots/Sample_Ariadne_Low_Q2_NC_DIS_06e.list
-PATH_0506e_MC=/nfs/dust/zeus/group/mykytaua/Jets_nfs/2019.05.15/control_plots_clean/root/output_Sample_Ariadne_Low_Q2_NC_DIS_0506e.list.root
-PATH_0506e_DATA=/nfs/dust/zeus/group/mykytaua/Jets_nfs/2019.05.15/control_plots_clean/root/output_Sample_0506e.list.root
+PATH_0506e_MC=/nfs/dust/zeus/group/mykytaua/Jets_nfs/2019.05.19/control_plots/root/output_Sample_Ariadne_Low_Q2_NC_DIS_0506e.list.root
+PATH_0506e_DATA=/nfs/dust/zeus/group/mykytaua/Jets_nfs/2019.05.19/control_plots/root/output_Sample_0506e.list.root
 
 #MC 0607p + results for calibration
 MC_0607p=/nfs/dust/zeus/group/mykytaua/Jets_nfs/List_contr_plots/Sample_Ariadne_Low_Q2_NC_DIS_0607p.list
-PATH_0607p_MC=/nfs/dust/zeus/group/mykytaua/Jets_nfs/2019.05.15/control_plots_clean/root/output_Sample_Ariadne_Low_Q2_NC_DIS_0607p.list.root
-PATH_0607p_DATA=/nfs/dust/zeus/group/mykytaua/Jets_nfs/2019.05.15/control_plots_clean/root/output_Sample_0607p.list.root
+PATH_0607p_MC=/nfs/dust/zeus/group/mykytaua/Jets_nfs/2019.05.19/control_plots/root/output_Sample_Ariadne_Low_Q2_NC_DIS_0607p.list.root
+PATH_0607p_DATA=/nfs/dust/zeus/group/mykytaua/Jets_nfs/2019.05.19/control_plots/root/output_Sample_0607p.list.root
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #DATA=
@@ -24,7 +24,7 @@ PATH_0607p_DATA=/nfs/dust/zeus/group/mykytaua/Jets_nfs/2019.05.15/control_plots_
 list_dir=/nfs/dust/zeus/group/mykytaua/Jets_nfs/List_contr_plots
 WORKDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 #OUTDIR=/nfs/dust/zeus/group/mykytaua/Jets_nfs/20.04.2019/lepton_prob_energy
-OUTDIR=/nfs/dust/zeus/group/mykytaua/Jets_nfs/2019.05.19/control_plots
+OUTDIR=/nfs/dust/zeus/group/mykytaua/Jets_nfs/2019.05.23/control_plots_reweight_byLepAngle
 mkdir -p $OUTDIR
 
 while [ ! $# -eq 0 ]
@@ -181,9 +181,9 @@ do
 
         --hadd| -h)
 
-            mkdir ${OUTDIR}/root
+            mkdir ./root
             
-            for i in ${OUTDIR}/output_*
+            for i in ./output_*
             do
                 filename=$(basename $i)
                 hadd root/${filename}.root ${i}/output/*
