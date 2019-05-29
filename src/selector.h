@@ -111,10 +111,16 @@ public:
 
   void FillHists(bool isdata, bool isCalibr){
     
+            //--------Correlation Angle------------
+	    Float_t ElectronPhi = Siph[0] > 0. ? Siph[0] : 2*TMath::Pi() + Siph[0];  
+	    Float_t DecorrPhi   = TMath::Abs( Kt_phijet_b[0] - ElectronPhi) ;
+	    if(DecorrPhi > TMath::Pi()) DecorrPhi = 2*TMath::Pi() - DecorrPhi ;
+
 	    Float_t Weight = 1.0;	
-	    //if(!isdata && isCalibr) Weight=BinCalibr->getWeight(Siecorr[0][2]);
-	    if(!isdata && isCalibr) Weight=BinCalibr->getWeight(Siph[0]) ; //Lepton phi
+	    //if(!isdata && isCalibr) Weight=BinCalibr->getWeight(Siecorr[0][2]); //Lepton Energy
+	    //if(!isdata && isCalibr) Weight=BinCalibr->getWeight(Siph[0]) ; //Lepton phi
 	    //if(!isdata && isCalibr) Weight=BinCalibr->getWeight(Kt_phijet_b[0]); //Jet phi
+	    if(!isdata && isCalibr) Weight=BinCalibr->getWeight(DecorrPhi); //by Decorrelation angle
 
 	    Float_t Empz = 0.;
 	    for(Int_t zloop=0; zloop<Nzufos; zloop++){
@@ -150,10 +156,6 @@ public:
 	    hJetPhi ->Fill(Kt_phijet_b[0],Weight);
 	
 	    //------------Correlation
-	    Float_t ElectronPhi = Siph[0] > 0. ? Siph[0] : 2*TMath::Pi() + Siph[0];  
-	    Float_t DecorrPhi   = TMath::Abs( Kt_phijet_b[0] - ElectronPhi) ;
-	    if(DecorrPhi > TMath::Pi()) DecorrPhi = 2*TMath::Pi() - DecorrPhi ;
-	
 	    for(Int_t ijet =0; ijet < 5; ijet++){ 
 	      if(Kt_njet_b > ijet) {
 		hDecorrPhi[ijet]   ->Fill(DecorrPhi       ,Weight);

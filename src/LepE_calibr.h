@@ -26,12 +26,16 @@ public:
 		//TH1D* hmc   = (TH1D*)fmc->Get("hElecE");
 	
 		// by Lepton Angle
-	        hdata_R = (TH1D*)fdata->Get("hElecPhi");
-		TH1D* hmc = (TH1D*)fmc->Get("hElecPhi");	
+	        //hdata_R = (TH1D*)fdata->Get("hElecPhi");
+		//TH1D* hmc = (TH1D*)fmc->Get("hElecPhi");	
 
 		// by Jet Angle
 	        //hdata_R = (TH1D*)fdata->Get("hJetPhi");
 		//TH1D* hmc = (TH1D*)fmc->Get("hJetPhi" );	
+
+		//by Decorreletion angle itself
+	        hdata_R = (TH1D*)fdata->Get("hDecorrPhi_0");
+		TH1D* hmc = (TH1D*)fmc->Get("hDecorrPhi_0" );
 
 		////hmcElecE->Scale(hmcElecE->GetEntries()/hdataElecE_R->GetEntries());
 		hdata_R->Divide(hmc);
