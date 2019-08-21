@@ -3925,7 +3925,7 @@ public :
    TBranch        *b_tlev_evtype;   //!
    TBranch        *b_tlev_eminpz;   //!
 
-   JetOrange2018(TTree *tree=0);
+   JetOrange2018(TTree *tree=0, Bool_t isdata=0);
    virtual ~JetOrange2018();
    //virtual Int_t    Cut(Long64_t entry);
    virtual Int_t    GetEntry(Long64_t entry);
@@ -3942,8 +3942,9 @@ public :
 #endif
 
 #ifdef JetOrange2018_cxx
-JetOrange2018::JetOrange2018(TTree *tree) : fChain(0) 
+JetOrange2018::JetOrange2018(TTree *tree, Bool_t isdata) : fChain(0) 
 {
+mIsData=isdata;
 // if parameter tree is not specified (or zero), connect the file
 // used to generate this class and read the Tree.
    if (tree == 0) {

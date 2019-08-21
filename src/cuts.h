@@ -14,7 +14,7 @@
 class JetOrangeSelect : public JetOrange2018 {
 
 public:
-JetOrangeSelect():JetOrange2018(){};
+JetOrangeSelect(TTree *tree, Bool_t isdata):JetOrange2018(tree,isdata){};
 
 bool CheckCuts(TString period){
 

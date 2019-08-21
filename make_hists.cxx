@@ -3,8 +3,8 @@
 
 void make_hists(const Char_t *eachfile= "~/Desktop/zeusmc.hfix627.h1391.0607p.q4.ari_2911.root ", 
 	  const Char_t *outdir="./",
-	  const Char_t *BinCalibr_data="none",
-	  const Char_t *BinCalibr_mc="none")
+	  const Char_t *BinCalibr_data=NULL,
+	  const Char_t *BinCalibr_mc=NULL)
 {
 
   //gROOT->cd();
@@ -18,9 +18,10 @@ void make_hists(const Char_t *eachfile= "~/Desktop/zeusmc.hfix627.h1391.0607p.q4
   std::cout<<"Check input\n";
   std::cout<<eachfile<<"\n";
   std::cout<<outdir<<"\n";
+  if(BinCalibr_data!=NULL){
   std::cout<<BinCalibr_data<<"\n";
   std::cout<<BinCalibr_mc<<"\n";
-  
+  }
   TFile f(eachfile); if (f.IsZombie())  {std::cout<< "Problems with file: " << eachfile << std::endl; return;}
   std::string eachfile2 = eachfile;
   size_t found = eachfile2.find("/data_");
@@ -48,12 +49,12 @@ void make_hists(const Char_t *eachfile= "~/Desktop/zeusmc.hfix627.h1391.0607p.q4
   TTree *firstJet = (TTree*)f.Get("orange");
   if (!firstJet) {std::cout<< "Problems with file: " << eachfile << std::endl; return;}
   
-  ControlPlot::Selector *JetOrange = new ControlPlot::Selector(firstJet);
+  ControlPlot::Selector *JetOrange = new ControlPlot::Selector(firstJet,isdata);
   //Plot2D::Selector *JetOrange = new Plot2D::Selector();
   
   // Why this function after Init() ??? 
-  JetOrange->SetData(isdata);
-  JetOrange->Init(firstJet);
+  //JetOrange->SetData(isdata);
+  //JetOrange->Init(firstJet);
   //JetOrange->SetData(isdata);
   JetOrange->InitHists();
   
@@ -71,7 +72,7 @@ void make_hists(const Char_t *eachfile= "~/Desktop/zeusmc.hfix627.h1391.0607p.q4
 
   //calibration setup 
   Bool_t isCalibr = 0;
-  if(BinCalibr_mc!="none")
+  if(BinCalibr_mc!=NULL)
   {
 	std::cout<<"-> Bin by bin callibration of Lepton Energy - ON!\n";
   	JetOrange->BinCalibr = new Calibrator(BinCalibr_data,BinCalibr_mc);

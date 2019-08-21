@@ -24,7 +24,7 @@ PATH_0607p_DATA=/nfs/dust/zeus/group/mykytaua/Jets_nfs/2019.05.19/control_plots/
 list_dir=/nfs/dust/zeus/group/mykytaua/Jets_nfs/List_contr_plots
 WORKDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 #OUTDIR=/nfs/dust/zeus/group/mykytaua/Jets_nfs/20.04.2019/lepton_prob_energy
-OUTDIR=/nfs/dust/zeus/group/mykytaua/Jets_nfs/2019.05.23/control_plots_reweight_byDecorr
+OUTDIR=/nfs/dust/zeus/group/mykytaua/Jets_nfs/test_fold
 mkdir -p $OUTDIR
 
 while [ ! $# -eq 0 ]
