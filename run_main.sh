@@ -22,12 +22,12 @@
 MC_05e=/nfs/dust/zeus/group/mykytaua/Jets_nfs/List_contr_plots/Sample_Ariadne_Low_Q2_NC_DIS_05e.list
 MC_06e=/nfs/dust/zeus/group/mykytaua/Jets_nfs/List_contr_plots/Sample_Ariadne_Low_Q2_NC_DIS_06e.list
 MC_0607p=/nfs/dust/zeus/group/mykytaua/Jets_nfs/List_contr_plots/Sample_Ariadne_Low_Q2_NC_DIS_0607p.list
-DATA=MC_05e
+DATA=$MC_06e
 
 list_dir=/nfs/dust/zeus/group/mykytaua/Jets_nfs/List_contr_plots
 WORKDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 #OUTDIR=/nfs/dust/zeus/group/mykytaua/Jets_nfs/20.04.2019/lepton_prob_energy
-OUTDIR=/nfs/dust/zeus/group/mykytaua/Jets_nfs/test_fold
+OUTDIR=/nfs/dust/zeus/group/mykytaua/Jets_nfs/Preliminary_purity/out_true
 mkdir -p $OUTDIR
 
 while [ ! $# -eq 0 ]

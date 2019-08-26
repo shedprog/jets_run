@@ -92,6 +92,7 @@ bool CheckCuts_reco(TString period){
     //Calculate E-pz from zufo
     Float_t Empz = 0;
     for(Int_t zloop=0; zloop<Nzufos; zloop++){
+      std::cout<<Nzufos<<"\n";
       TLorentzVector v(Zufo[zloop][0], Zufo[zloop][1], 
            Zufo[zloop][2], Zufo[zloop][3]);
       Empz += Zufo[zloop][3] - Zufo[zloop][2];
