@@ -79,11 +79,22 @@ void make_hists(const Char_t *eachfile= "~/Desktop/zeusmc.hfix627.h1391.0607p.q4
         isCalibr = 1;
   }
 
+  std::cout<<"Start of the selection\n";
   for (Long64_t jentry=0; jentry<nentries;jentry++) {
+
     JetOrange->GetEntry(jentry);
-    if(!JetOrange->CheckCuts(period)) continue;
-    JetOrange->FillHists(isdata,isCalibr);
+
+    // if(!JetOrange->CheckCuts(period)) continue;
+    // if(!JetOrange->CheckCuts_true(period)) continue;
+    if(!JetOrange->CheckCuts_reco(period)) continue;
+
+    // JetOrange->FillHists(isdata,isCalibr);
+    // JetOrange->FillHists_true(isdata, isCalibr);
+    JetOrange->FillHists_reco(isdata, isCalibr);
+
+
     count++;
+
   }
 
   std::cout << "Number of events after the cuts : " << count << std::endl;

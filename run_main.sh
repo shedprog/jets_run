@@ -2,24 +2,27 @@
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-#DATA
-DATA_05e=/nfs/dust/zeus/group/mykytaua/Jets_nfs/List_contr_plots/Sample_05e.list
-DATA_0607p=/nfs/dust/zeus/group/mykytaua/Jets_nfs/List_contr_plots/Sample_0607p.list
-DATA_06e=/nfs/dust/zeus/group/mykytaua/Jets_nfs/List_contr_plots/Sample_06e.list
+# #DATA
+# DATA_05e=/nfs/dust/zeus/group/mykytaua/Jets_nfs/List_contr_plots/Sample_05e.list
+# DATA_0607p=/nfs/dust/zeus/group/mykytaua/Jets_nfs/List_contr_plots/Sample_0607p.list
+# DATA_06e=/nfs/dust/zeus/group/mykytaua/Jets_nfs/List_contr_plots/Sample_06e.list
 
-#MC 0506e + results for calibration
-MC_05e=/nfs/dust/zeus/group/mykytaua/Jets_nfs/List_contr_plots/Sample_Ariadne_Low_Q2_NC_DIS_05e.list
-MC_06e=/nfs/dust/zeus/group/mykytaua/Jets_nfs/List_contr_plots/Sample_Ariadne_Low_Q2_NC_DIS_06e.list
-PATH_0506e_MC=/nfs/dust/zeus/group/mykytaua/Jets_nfs/2019.05.19/control_plots/root/output_Sample_Ariadne_Low_Q2_NC_DIS_0506e.list.root
-PATH_0506e_DATA=/nfs/dust/zeus/group/mykytaua/Jets_nfs/2019.05.19/control_plots/root/output_Sample_0506e.list.root
+# #MC 0506e + results for calibration
+# MC_05e=/nfs/dust/zeus/group/mykytaua/Jets_nfs/List_contr_plots/Sample_Ariadne_Low_Q2_NC_DIS_05e.list
+# MC_06e=/nfs/dust/zeus/group/mykytaua/Jets_nfs/List_contr_plots/Sample_Ariadne_Low_Q2_NC_DIS_06e.list
+# PATH_0506e_MC=/nfs/dust/zeus/group/mykytaua/Jets_nfs/2019.05.19/control_plots/root/output_Sample_Ariadne_Low_Q2_NC_DIS_0506e.list.root
+# PATH_0506e_DATA=/nfs/dust/zeus/group/mykytaua/Jets_nfs/2019.05.19/control_plots/root/output_Sample_0506e.list.root
 
-#MC 0607p + results for calibration
-MC_0607p=/nfs/dust/zeus/group/mykytaua/Jets_nfs/List_contr_plots/Sample_Ariadne_Low_Q2_NC_DIS_0607p.list
-PATH_0607p_MC=/nfs/dust/zeus/group/mykytaua/Jets_nfs/2019.05.19/control_plots/root/output_Sample_Ariadne_Low_Q2_NC_DIS_0607p.list.root
-PATH_0607p_DATA=/nfs/dust/zeus/group/mykytaua/Jets_nfs/2019.05.19/control_plots/root/output_Sample_0607p.list.root
+# #MC 0607p + results for calibration
+# MC_0607p=/nfs/dust/zeus/group/mykytaua/Jets_nfs/List_contr_plots/Sample_Ariadne_Low_Q2_NC_DIS_0607p.list
+# PATH_0607p_MC=/nfs/dust/zeus/group/mykytaua/Jets_nfs/2019.05.19/control_plots/root/output_Sample_Ariadne_Low_Q2_NC_DIS_0607p.list.root
+# PATH_0607p_DATA=/nfs/dust/zeus/group/mykytaua/Jets_nfs/2019.05.19/control_plots/root/output_Sample_0607p.list.root
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#DATA=
+MC_05e=/nfs/dust/zeus/group/mykytaua/Jets_nfs/List_contr_plots/Sample_Ariadne_Low_Q2_NC_DIS_05e.list
+MC_06e=/nfs/dust/zeus/group/mykytaua/Jets_nfs/List_contr_plots/Sample_Ariadne_Low_Q2_NC_DIS_06e.list
+MC_0607p=/nfs/dust/zeus/group/mykytaua/Jets_nfs/List_contr_plots/Sample_Ariadne_Low_Q2_NC_DIS_0607p.list
+DATA=MC_05e
 
 list_dir=/nfs/dust/zeus/group/mykytaua/Jets_nfs/List_contr_plots
 WORKDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
